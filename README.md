@@ -1,4 +1,4 @@
-# 🍦 Sorvetudos — Catálogo Digital e Sistema de Gestão de Produtos
+#  Sorvetudos — Catálogo Digital e Sistema de Gestão de Produtos
 
 ### Projeto Integrador - Desenvolvimento de Sistemas (SENAI-SP)
 
@@ -6,7 +6,7 @@ Este repositório contém os artefatos desenvolvidos para o Projeto Integrador d
 
 ---
 
-## 📋 Sobre o Projeto
+##  Sobre o Projeto
 
 A Sorvetudos é uma plataforma digital desenvolvida para auxiliar na divulgação e gerenciamento de produtos de uma sorveteria.
 
@@ -19,11 +19,11 @@ A solução é composta por:
 
 ---
 
-## 📚 Divisão das Áreas do Projeto
+##  Divisão das Áreas do Projeto
 
 Por se tratar de um Projeto Integrador desenvolvido em equipe, as atividades foram organizadas em áreas de responsabilidade, permitindo que os integrantes aplicassem conhecimentos de diferentes competências do curso e trabalhassem de forma colaborativa no desenvolvimento da solução.
 
-### 🎨 Frontend
+###  Frontend
 
 Responsável pela construção da interface visual e experiência do usuário.
 
@@ -33,7 +33,7 @@ Responsável pela construção da interface visual e experiência do usuário.
 * Consumo dos dados disponibilizados pela API.
 * Aplicação da identidade visual da Sorvetudos.
 
-### ⚙️ Backend
+###  Backend
 
 Responsável pela implementação da lógica de negócio e integração dos sistemas.
 
@@ -43,7 +43,7 @@ Responsável pela implementação da lógica de negócio e integração dos sist
 * Implementação da autenticação com JWT.
 * Validação de dados e tratamento de erros.
 
-### 🗄️ Banco de Dados
+###  Banco de Dados
 
 Responsável pela persistência e organização das informações.
 
@@ -52,7 +52,7 @@ Responsável pela persistência e organização das informações.
 * Estruturação das entidades do sistema.
 * Garantia da integridade dos dados.
 
-### 📋 Projetos
+###  Projetos
 
 Responsável pelo planejamento e documentação do desenvolvimento.
 
@@ -64,9 +64,9 @@ Responsável pelo planejamento e documentação do desenvolvimento.
 
 ---
 
-## ⚙️ Funcionalidades do Sistema
+##  Funcionalidades do Sistema
 
-### 🌐 Website Público
+###  Website Público
 
 * Catálogo de produtos.
 * Pesquisa por nome.
@@ -74,7 +74,7 @@ Responsável pelo planejamento e documentação do desenvolvimento.
 * Página de detalhes dos produtos.
 * Exibição apenas de produtos ativos.
 
-### 🔒 Painel Administrativo
+###  Painel Administrativo
 
 * Cadastro de administradores.
 * Login com autenticação JWT.
@@ -84,7 +84,7 @@ Responsável pelo planejamento e documentação do desenvolvimento.
 * Gerenciamento de promoções.
 * Upload de imagens.
 
-### 🔗 API REST
+###  API REST
 
 * Consulta de produtos e categorias.
 * Busca e filtros.
@@ -95,7 +95,7 @@ Responsável pelo planejamento e documentação do desenvolvimento.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 ### Frontend
 
@@ -124,13 +124,13 @@ Responsável pelo planejamento e documentação do desenvolvimento.
 
 ---
 
-## 🎯 Objetivo Acadêmico
+##  Objetivo Acadêmico
 
 Este projeto tem como finalidade aplicar de forma integrada os conhecimentos adquiridos durante o curso de Desenvolvimento de Sistemas, contemplando desenvolvimento frontend, backend, banco de dados, documentação e trabalho em equipe na construção de uma solução web completa.
 
-## 👥 Equipe de Desenvolvimento
+##  Equipe de Desenvolvimento
 
-* Julio
-* Murilo
-* Artur
-* Juan 
+* [Julio](https://github.com/julioau15)
+* [Murilo](https://github.com/Murilo-Antunes)
+* [Artur](https://github.com/Thuzs)
+* [Juan](https://github.com/juancpessoa-ui)
