@@ -132,5 +132,5 @@ Este projeto tem como finalidade aplicar de forma integrada os conhecimentos adq
 
 * [Julio](https://github.com/julioau15)
 * [Murilo](https://github.com/Murilo-Antunes)
-* [Artur](https://github.com/Thuzs)
+* [Arthur](https://github.com/Thuzs)
 * [Juan](https://github.com/juancpessoa-ui)
