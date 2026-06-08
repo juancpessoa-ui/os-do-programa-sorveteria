@@ -1,0 +1,1261 @@
+openapi: 3.0.3
+info:
+  title: Sorvetudos API - Administração
+  description: API destinada ao gerenciamento administrativo da Sorvetudos
+  termsOfService: http://swagger.io/terms/
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /v1/sorvetudos/admin/auth/login:
+    post:
+      tags:
+        - auth
+      summary: Efetua login de administrador
+      description: Realiza a autenticação de um usuário administrador no sistema
+      requestBody:
+        description: JSON contendo as credenciais de login
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auth'
+        '400':
+          description: Invalid input
+        '415':
+          description: Error Content type
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/auth/validate:
+    get:
+      tags:
+        - auth
+      summary: Valida a sessão do usuário
+      description: Verifica a validade e integridade do token atual
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auth'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/usuarios:
+    post:
+      tags:
+        - usuarios
+      summary: Adiciona um novo usuario
+      description: Adiciona um novo usuario no banco de dados
+      requestBody:
+        description: JSON contendo os dados do novo usuario a ser inserido no sistema
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        '400':
+          description: Invalid input
+        '415':
+          description: Error Content type
+        '500':
+          description: Error Internal Server (Model or Controller)
+    get:
+      tags:
+        - usuarios
+      summary: Lista todos os usuarios
+      description: Listagem de todos os usuarios registrados no sistema
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usuario'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/usuarios/{id}:
+    get:
+      tags:
+        - usuarios
+      summary: Busca um usuario pelo ID
+      description: Retorna um usuario pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do usuario
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - usuarios
+      summary: Update an existing usuario
+      description: Update an existing usuario by Id
+      parameters:
+        - name: id
+          in: path
+          description: ID do usuario
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent usuario in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+    delete:
+      tags:
+        - usuarios
+      summary: Delete usuario
+      description: Excluir um usuario
+      parameters:
+        - name: id
+          in: path
+          description: ID do usuario
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/produtos:
+    post:
+      tags:
+        - produtos
+      summary: Adiciona um novo produto
+      description: Adiciona um novo produto no banco de dados
+      requestBody:
+        description: JSON contendo os dados do novo produto a ser inserido no sistema
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Produto'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        '400':
+          description: Invalid input
+        '415':
+          description: Error Content type
+        '500':
+          description: Error Internal Server (Model or Controller)
+    get:
+      tags:
+        - produtos
+      summary: Lista todos os produtos
+      description: Listagem de todos os produtos registrados no sistema
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/produtos/{id}:
+    get:
+      tags:
+        - produtos
+      summary: Busca um produto pelo ID
+      description: Retorna um produto pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do produto
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - produtos
+      summary: Update an existing produto
+      description: Update an existing produto by Id
+      parameters:
+        - name: id
+          in: path
+          description: ID do produto
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent produto in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Produto'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+    delete:
+      tags:
+        - produtos
+      summary: Delete produto
+      description: Excluir um produto
+      parameters:
+        - name: id
+          in: path
+          description: ID do produto
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/categorias:
+    post:
+      tags:
+        - categorias
+      summary: Adiciona uma nova categoria
+      description: Adiciona uma nova categoria no banco de dados
+      requestBody:
+        description: JSON contendo os dados da nova categoria a ser inserida no sistema
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+        '400':
+          description: Invalid input
+        '415':
+          description: Error Content type
+        '500':
+          description: Error Internal Server (Model or Controller)
+    get:
+      tags:
+        - categorias
+      summary: Lista todas as categorias
+      description: Listagem de todas as categorias registradas no sistema
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categoria'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/categorias/{id}:
+    get:
+      tags:
+        - categorias
+      summary: Busca uma categoria pelo ID
+      description: Retorna uma categoria pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID da categoria
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - categorias
+      summary: Update an existing categoria
+      description: Update an existing categoria by Id
+      parameters:
+        - name: id
+          in: path
+          description: ID da categoria
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent categoria in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+    delete:
+      tags:
+        - categorias
+      summary: Delete categoria
+      description: Excluir uma categoria
+      parameters:
+        - name: id
+          in: path
+          description: ID da categoria
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/sabores:
+    post:
+      tags:
+        - sabores
+      summary: Adiciona um novo sabor
+      description: Adiciona um novo sabor no banco de dados
+      requestBody:
+        description: JSON contendo os dados do novo sabor a ser inserido no sistema
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sabor'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sabor'
+        '400':
+          description: Invalid input
+        '415':
+          description: Error Content type
+        '500':
+          description: Error Internal Server (Model or Controller)
+    get:
+      tags:
+        - sabores
+      summary: Lista todos os sabores
+      description: Listagem de todos os sabores registrados no sistema
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sabor'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/sabores/{id}:
+    get:
+      tags:
+        - sabores
+      summary: Busca um sabor pelo ID
+      description: Retorna um sabor pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do sabor
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sabor'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - sabores
+      summary: Update an existing sabor
+      description: Update an existing sabor by Id
+      parameters:
+        - name: id
+          in: path
+          description: ID do sabor
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent sabor in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sabor'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sabor'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+    delete:
+      tags:
+        - sabores
+      summary: Delete sabor
+      description: Excluir um sabor
+      parameters:
+        - name: id
+          in: path
+          description: ID do sabor
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sabor'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/ingredientes:
+    post:
+      tags:
+        - ingredientes
+      summary: Adiciona um novo ingrediente
+      description: Adiciona um novo ingrediente no banco de dados
+      requestBody:
+        description: JSON contendo os dados do novo ingrediente a ser inserido no sistema
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingrediente'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingrediente'
+        '400':
+          description: Invalid input
+        '415':
+          description: Error Content type
+        '500':
+          description: Error Internal Server (Model or Controller)
+    get:
+      tags:
+        - ingredientes
+      summary: Lista todos os ingredientes
+      description: Listagem de todos os ingredientes registrados no sistema
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingrediente'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/ingredientes/{id}:
+    get:
+      tags:
+        - ingredientes
+      summary: Busca um ingrediente pelo ID
+      description: Retorna um ingrediente pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do ingrediente
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingrediente'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - ingredientes
+      summary: Update an existing ingrediente
+      description: Update an existing ingrediente by Id
+      parameters:
+        - name: id
+          in: path
+          description: ID do ingrediente
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent ingrediente in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingrediente'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingrediente'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+    delete:
+      tags:
+        - ingredientes
+      summary: Delete ingrediente
+      description: Excluir um ingrediente
+      parameters:
+        - name: id
+          in: path
+          description: ID do ingrediente
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingrediente'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/tags:
+    post:
+      tags:
+        - tags
+      summary: Adiciona uma nova tag
+      description: Adiciona uma nova tag no banco de dados
+      requestBody:
+        description: JSON contendo os dados da nova tag a ser inserida no sistema
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '400':
+          description: Invalid input
+        '415':
+          description: Error Content type
+        '500':
+          description: Error Internal Server (Model or Controller)
+    get:
+      tags:
+        - tags
+      summary: Lista todas as tags
+      description: Listagem de todas as tags registradas no sistema
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/tags/{id}:
+    get:
+      tags:
+        - tags
+      summary: Busca uma tag pelo ID
+      description: Retorna uma tag pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID da tag
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - tags
+      summary: Update an existing tag
+      description: Update an existing tag by Id
+      parameters:
+        - name: id
+          in: path
+          description: ID da tag
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent tag in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+          content: {}
+        '500':
+          description: Error Internal Server (Model or Controller)
+    delete:
+      tags:
+        - tags
+      summary: Delete tag
+      description: Excluir uma tag
+      parameters:
+        - name: id
+          in: path
+          description: ID da tag
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/promocoes:
+    post:
+      tags:
+        - promocoes
+      summary: Adiciona uma nova promocao
+      description: Adiciona uma nova promocao no banco de dados
+      requestBody:
+        description: JSON contendo os dados da nova promocao a ser inserida no sistema
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Promocao'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promocao'
+        '400':
+          description: Invalid input
+        '415':
+          description: Error Content type
+        '500':
+          description: Error Internal Server (Model or Controller)
+    get:
+      tags:
+        - promocoes
+      summary: Lista todas as promocoes
+      description: Listagem de todas as promocoes registradas no sistema
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Promocao'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/promocoes/{id}:
+    get:
+      tags:
+        - promocoes
+      summary: Busca uma promocao pelo ID
+      description: Retorna uma promocao pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID da promocao
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promocao'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - promocoes
+      summary: Update an existing promocao
+      description: Update an existing promocao by Id
+      parameters:
+        - name: id
+          in: path
+          description: ID da promocao
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent promocao in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Promocao'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promocao'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+    delete:
+      tags:
+        - promocoes
+      summary: Delete promocao
+      description: Excluir uma promocao
+      parameters:
+        - name: id
+          in: path
+          description: ID da promocao
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promocao'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/lotes:
+    post:
+      tags:
+        - lotes
+      summary: Adiciona um novo lote
+      description: Adiciona um novo lote no banco de dados
+      requestBody:
+        description: JSON contendo os dados do novo lote a ser inserido no sistema
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lote'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lote'
+        '400':
+          description: Invalid input
+        '415':
+          description: Error Content type
+        '500':
+          description: Error Internal Server (Model or Controller)
+    get:
+      tags:
+        - lotes
+      summary: Lista todos os lotes
+      description: Listagem de todos os lotes registrados no sistema
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Lote'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/admin/lotes/{id}:
+    get:
+      tags:
+        - lotes
+      summary: Busca um lote pelo ID
+      description: Retorna um lote pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do lote
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lote'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - lotes
+      summary: Update an existing lote
+      description: Update an existing lote by Id
+      parameters:
+        - name: id
+          in: path
+          description: ID do lote
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent lote in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lote'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lote'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+    delete:
+      tags:
+        - lotes
+      summary: Delete lote
+      description: Excluir um lote
+      parameters:
+        - name: id
+          in: path
+          description: ID do lote
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lote'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+components:
+  schemas:
+    Login:
+      required:
+        - email
+        - senha
+      type: object
+      properties:
+        email:
+          type: string
+        senha:
+          type: string
+
+    Auth:
+      required:
+        - token
+        - usuario
+      type: object
+      properties:
+        token:
+          type: string
+        usuario:
+          $ref: '#/components/schemas/Usuario'
+
+    Usuario:
+      required:
+        - nome
+        - email
+        - senha
+        - nivel_de_acesso
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        nivel_de_acesso:
+          type: string
+
+    Produto:
+      required:
+        - nome
+        - descricao
+        - preco
+        - status
+        - tamanho
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        descricao:
+          type: string
+        preco:
+          type: number
+        status:
+          type: boolean
+        tamanho:
+          type: string
+        img:
+          type: string
+        categorias:
+          type: array
+          items:
+            type: integer
+        sabores:
+          type: array
+          items:
+            type: integer
+        ingredientes:
+          type: array
+          items:
+            type: integer
+        tags:
+          type: array
+          items:
+            type: integer
+        promocoes:
+          type: array
+          items:
+            type: integer
+        lotes:
+          type: array
+          items:
+            type: integer
+
+    Categoria:
+      required:
+        - categoria
+      type: object
+      properties:
+        id:
+          type: integer
+        categoria:
+          type: string
+
+    Sabor:
+      required:
+        - sabor
+      type: object
+      properties:
+        id:
+          type: integer
+        sabor:
+          type: string
+
+    Ingrediente:
+      required:
+        - ingrediente
+      type: object
+      properties:
+        id:
+          type: integer
+        ingrediente:
+          type: string
+
+    Tag:
+      required:
+        - tag
+      type: object
+      properties:
+        id:
+          type: integer
+        tag:
+          type: string
+
+    Promocao:
+      required:
+        - valor_atual
+        - valor_promocao
+        - status
+      type: object
+      properties:
+        id:
+          type: integer
+        valor_atual:
+          type: number
+        valor_promocao:
+          type: number
+        status:
+          type: boolean
+
+    Lote:
+      required:
+        - data_fabricacao
+        - data_validade
+        - quantidade
+      type: object
+      properties:
+        id:
+          type: integer
+        data_fabricacao:
+          type: string
+        data_validade:
+          type: string
+        quantidade:
+          type: integer

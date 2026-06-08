@@ -1,0 +1,488 @@
+openapi: 3.0.3
+info:
+  title: Sorvetudos API - Catálogo
+  description: API destinada à consulta pública do catálogo da Sorvetudos
+  termsOfService: http://swagger.io/terms/
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /v1/sorvetudos/catalogo/produtos:
+    get:
+      tags:
+        - produtos
+      summary: Lista todos os produtos
+      description: Listagem de todos os produtos ativos do catálogo
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/catalogo/produtos/pesquisa:
+    get:
+      tags:
+        - produtos
+      summary: Pesquisa produtos por nome
+      description: Retorna uma lista de produtos cujo nome corresponde ao termo pesquisado
+      parameters:
+        - name: nome
+          in: query
+          description: Termo de pesquisa para o nome do produto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'
+        '400':
+          description: Invalid query parameter supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/catalogo/produtos/filtros:
+    get:
+      tags:
+        - produtos
+      summary: Filtra produtos por múltiplos critérios
+      description: Retorna uma lista de produtos filtrados por categoria, sabor, ingrediente, tag, promoção, tamanho e faixa de preço
+      parameters:
+        - name: categoria
+          in: query
+          description: ID da categoria
+          required: false
+          schema:
+            type: integer
+        - name: sabor
+          in: query
+          description: ID do sabor
+          required: false
+          schema:
+            type: integer
+        - name: ingrediente
+          in: query
+          description: ID do ingrediente
+          required: false
+          schema:
+            type: integer
+        - name: tag
+          in: query
+          description: ID da tag
+          required: false
+          schema:
+            type: integer
+        - name: promocao
+          in: query
+          description: ID da promocao
+          required: false
+          schema:
+            type: integer
+        - name: tamanho
+          in: query
+          description: Tamanho do produto
+          required: false
+          schema:
+            type: string
+        - name: preco_min
+          in: query
+          description: Preço mínimo do produto
+          required: false
+          schema:
+            type: number
+        - name: preco_max
+          in: query
+          description: Preço máximo do produto
+          required: false
+          schema:
+            type: number
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'
+        '400':
+          description: Invalid query parameter supplied
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/catalogo/produtos/{id}:
+    get:
+      tags:
+        - produtos
+      summary: Busca um produto pelo ID
+      description: Retorna um produto ativo específico baseado no seu ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do produto a ser retornado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Product not found
+
+  /v1/sorvetudos/catalogo/categorias:
+    get:
+      tags:
+        - categorias
+      summary: Lista todas as categorias
+      description: Listagem de todas as categorias disponíveis no catálogo
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categoria'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/catalogo/categorias/{id}:
+    get:
+      tags:
+        - categorias
+      summary: Busca uma categoria pelo ID
+      description: Retorna uma categoria específica baseada no seu ID
+      parameters:
+        - name: id
+          in: path
+          description: ID da categoria a ser retornada
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Category not found
+
+  /v1/sorvetudos/catalogo/sabores:
+    get:
+      tags:
+        - sabores
+      summary: Lista todos os sabores
+      description: Listagem de todos os sabores disponíveis no catálogo
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sabor'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/catalogo/sabores/{id}:
+    get:
+      tags:
+        - sabores
+      summary: Busca um sabor pelo ID
+      description: Retorna um sabor específico baseado no seu ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do sabor a ser retornado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sabor'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Flavor not found
+
+  /v1/sorvetudos/catalogo/ingredientes:
+    get:
+      tags:
+        - ingredientes
+      summary: Lista todos os ingredientes
+      description: Listagem de todos os ingredientes disponíveis no catálogo
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingrediente'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/catalogo/ingredientes/{id}:
+    get:
+      tags:
+        - ingredientes
+      summary: Busca um ingrediente pelo ID
+      description: Retorna um ingrediente específico baseado no seu ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do ingrediente a ser retornado
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingrediente'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Ingredient not found
+
+  /v1/sorvetudos/catalogo/tags:
+    get:
+      tags:
+        - tags
+      summary: Lista todas as tags
+      description: Listagem de todas as tags disponíveis no catálogo
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/catalogo/tags/{id}:
+    get:
+      tags:
+        - tags
+      summary: Busca uma tag pelo ID
+      description: Retorna uma tag específica baseada no seu ID
+      parameters:
+        - name: id
+          in: path
+          description: ID da tag a ser retornada
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Tag not found
+
+  /v1/sorvetudos/catalogo/promocoes:
+    get:
+      tags:
+        - promocoes
+      summary: Lista todas as promoções
+      description: Listagem de todas as promoções disponíveis no catálogo
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Promocao'
+        '404':
+          description: Not Found
+        '500':
+          description: Error Internal Server (Model or Controller)
+
+  /v1/sorvetudos/catalogo/promocoes/{id}:
+    get:
+      tags:
+        - promocoes
+      summary: Busca uma promoção pelo ID
+      description: Retorna uma promoção específica baseada no seu ID
+      parameters:
+        - name: id
+          in: path
+          description: ID da promoção a ser retornada
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promocao'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Promotion not found
+
+components:
+  schemas:
+    Produto:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        descricao:
+          type: string
+        preco:
+          type: number
+        status:
+          type: boolean
+        tamanho:
+          type: string
+        img:
+          type: string
+        categorias:
+          type: array
+          items:
+            type: integer
+        sabores:
+          type: array
+          items:
+            type: integer
+        ingredientes:
+          type: array
+          items:
+            type: integer
+        tags:
+          type: array
+          items:
+            type: integer
+        promocoes:
+          type: array
+          items:
+            type: integer
+        lotes:
+          type: array
+          items:
+            type: integer
+
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+        categoria:
+          type: string
+
+    Sabor:
+      type: object
+      properties:
+        id:
+          type: integer
+        sabor:
+          type: string
+
+    Ingrediente:
+      type: object
+      properties:
+        id:
+          type: integer
+        ingrediente:
+          type: string
+
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+        tag:
+          type: string
+
+    Promocao:
+      type: object
+      properties:
+        id:
+          type: integer
+        valor_atual:
+          type: number
+        valor_promocao:
+          type: number
+        status:
+          type: boolean
+
+    Lote:
+      type: object
+      properties:
+        id:
+          type: integer
+        data_fabricacao:
+          type: string
+        data_validade:
+          type: string
+        quantidade:
+          type: integer
