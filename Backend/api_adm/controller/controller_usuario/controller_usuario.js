@@ -1,76 +1,76 @@
 /*********************************************************************************************************
- * Objetivo: Arquivo responsável pela validação, tratamento e manipulação de dados para o CRUD de atividade
- * Data: 06/05/2026
+ * Objetivo: Arquivo responsável pela validação, tratamento e manipulação de dados para o CRUD de usuario
+ * Data: 09/06/2026
  * Autor: Julio Augusto
  * Versão: 1.0.5.26
  * *******************************************************************************************************/
 
 const config_message = require('../module/configMessages.js')
-const atividadeDAO = require('../../model/DAO/atividade/atividade.js')
+const usuarioDAO = require('../../model/DAO/usuario/usuario.js')
 
-// inserir nova atividade
-const inserirNovaAtividade = async (atividade, contentType) => {
+// inserir nova usuario
+const inserirNovoUsuario = async (usuario, contentType) => {
     let message = JSON.parse(JSON.stringify(config_message))
     try {
-        let validar = await validarDados(atividade, contentType)
+        let validar = await validarDados(usuario, contentType)
         if(validar) return validar // 400 ou 415
 
-        let result = await atividadeDAO.insertAtividade(atividade)
+        let result = await usuarioDAO.insertUsuario(usuario)
 
         if(!result) return message.ERROR_INTERNAL_SERVER_MODEL
 
-        atividade.id = result
-        return await montarMensagem(message, message.SUCESS_CREATED_ITEM, atividade)
+        usuario.id = result
+        return await montarMensagem(message, message.SUCESS_CREATED_ITEM, usuario)
 
     } catch (error) {console.log(error)}
     return message.ERROR_INTERNAL_SERVER_CONTROLLER
 }
 
-// atualizar atividade
-const atualizarAtividade = async (atividade, id, contentType) => {
+// atualizar usuario
+const atualizarUsuario = async (usuario, id, contentType) => {
     let message = JSON.parse(JSON.stringify(config_message))
 
     try {
-        let validar = await validarDados(atividade, contentType)
+        let validar = await validarDados(usuario, contentType)
         if(validar) return validar // 400 ou 415
 
-        let resultBuscarId = await buscarAtividade(id)
+        let resultBuscarId = await buscarUsuario(id)
         if(!resultBuscarId.status) return resultBuscarId // 400 e 404
 
-        atividade.id = Number(id)
-        let result = await atividadeDAO.updateAtividade(atividade)
+        usuario.id = Number(id)
+        let result = await usuarioDAO.updateUsuario(usuario)
 
         if(!result) return message.ERROR_INTERNAL_SERVER_MODEL // 500
 
-        return await montarMensagem(message, message.SUCESS_UPDATE_ITEM, atividade)
+        return await montarMensagem(message, message.SUCESS_UPDATE_ITEM, usuario)
 
     } catch (error) {console.log(error)}
     return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
 }
 
-// listar todas atividades
-const listarAtividade = async () => {
+// listar todas usuarios
+const listarUsuario = async () => {
     let message = JSON.parse(JSON.stringify(config_message))
 
     try {
-        let result = await atividadeDAO.selectAllAtividade()
+        let result = await usuarioDAO.selectAllUsuario()
 
         if(!result) return message.ERROR_INTERNAL_SERVER_MODEL // 500
 
         // verfica se o array é vazio
         if(result.length <= 0) return message.ERROR_NOT_FOUND // status_code 404
 
-        let listarAtividadeMessage = await montarMensagem(message, message.SUCESS_RESPONSE, result)
+        let listarUsuarioMessage = await montarMensagem(message, message.SUCESS_RESPONSE, result)
         message.DEFAULT_MESSAGE.response.count = result.length
 
-        return listarAtividadeMessage // status_code 200
+        return listarUsuarioMessage // status_code 200
 
     } catch (error) {console.log(error)}
     return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
 }
 
-// buscar atividade pelo id
-const buscarAtividade = async (id) => {
+// buscar usuario pelo id
+const buscarUsuario = async (id) => {
     let message = JSON.parse(JSON.stringify(config_message))
 
     try {
@@ -78,7 +78,7 @@ const buscarAtividade = async (id) => {
        const validarID = await validarId(id)
        if(validarID) return validarID
 
-        let result = await atividadeDAO.selectByIdAtividade(id)
+        let result = await usuarioDAO.selectByIdUsuario(id)
 
         if(!result) return message.ERROR_INTERNAL_SERVER_MODEL // 500
 
@@ -90,16 +90,16 @@ const buscarAtividade = async (id) => {
     return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
 }
 
-// excluir atividade pelo id
-const excluirAtividade = async (id) => {
+// excluir usuario pelo id
+const excluirUsuario = async (id) => {
     let message = JSON.parse(JSON.stringify(config_message))
 
     try {
 
-        let resultBuscarId = await buscarAtividade(id)
+        let resultBuscarId = await buscarUsuario(id)
         if(!resultBuscarId.status) return resultBuscarId // 400 e 404
 
-        let result = await atividadeDAO.deleteAtividade(id)
+        let result = await usuarioDAO.deleteUsuario(id)
 
         if(!result) return message.ERROR_INTERNAL_SERVER_MODEL // 500
 
@@ -109,13 +109,13 @@ const excluirAtividade = async (id) => {
     return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
 }
 
-const validarDados = async (atividade, contentType) => {
+const validarDados = async (usuario, contentType) => {
     let message = JSON.parse(JSON.stringify(config_message))
 
     // Valida se o formato de dados é JSON
     if(String(contentType).toLowerCase() != 'application/json') return message.ERROR_CONTENT_TYPE // Status code 415
 
-    if(atividade.nome == undefined || atividade.nome == null || atividade.nome == '' || atividade.nome.length > 100 || typeof(atividade.nome) != 'string'){
+    if(usuario.nome == undefined || usuario.nome == null || usuario.nome == '' || usuario.nome.length > 100 || typeof(usuario.nome) != 'string'){
         message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO'
         return message.ERROR_BAD_REQUEST // 400
     }
@@ -139,16 +139,16 @@ const montarMensagem = async (base,status,response = null) => {
     base.DEFAULT_MESSAGE.status_code = status.status_code
     base.DEFAULT_MESSAGE.message = status.message
 
-    if(response != null) base.DEFAULT_MESSAGE.response.atividade = response
+    if(response != null) base.DEFAULT_MESSAGE.response.usuario = response
 
     return base.DEFAULT_MESSAGE // 200 ou 201
 }
 
 
 module.exports = {
-    inserirNovaAtividade,
-    atualizarAtividade,
-    listarAtividade,
-    buscarAtividade,
-    excluirAtividade
+    inserirNovoUsuario,
+    atualizarUsuario,
+    listarUsuario,
+    buscarUsuario,
+    excluirUsuario
 }
