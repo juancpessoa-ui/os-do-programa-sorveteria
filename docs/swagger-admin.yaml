@@ -1138,7 +1138,7 @@ components:
         senha:
           type: string
         nivel_de_acesso:
-          type: string
+          type: boolean
 
     Produto:
       required:
