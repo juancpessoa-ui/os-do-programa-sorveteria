@@ -9,7 +9,7 @@
 // import da biblioteca JWT (Jason Web Token)
     const jwt = require('jsonwebtoken')
     const SECRET = 'a1b2c3' // senha secreta para o token
-    const EXPIRES = 60 // segundos
+    const EXPIRES = 30 // segundos
     
     // Cria um Token do JWT (retorna um Token)
     const createJWT = async (payload) => {

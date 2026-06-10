@@ -7,26 +7,64 @@
 
 const config_message = require('../module/configMessages.js')
 const authDAO = require('../../model/DAO/auth/auth.js')
+const jwt = require('../../middleware/middlewareJWT.js')
 
-const validarDados = async (auth, contentType) => {
+// autenticar usuário
+const autenticarUsuario = async (usuario, contentType) => {
+
+    let message = JSON.parse(JSON.stringify(config_message))
+
+    try {
+        const validarUsuario = await validarDados(usuario, contentType)
+        if(validarUsuario) return validarUsuario
+        
+        const dadosAluno = await authDAO.selectAuth(usuario)
+
+        if (!dadosAluno || dadosAluno.length < 1)
+            return message.ERROR_NOT_FOUND
+
+        // gera token JWT
+        let tokenUser = await jwt.createJWT(dadosAluno.id)
+        
+        // adiciona token no json
+        dadosAluno[0].token = tokenUser
+
+        return await montarMensagem(
+            message,
+            message.SUCESS_RESPONSE,
+            dadosAluno
+        )
+
+    } catch (error) {
+        console.log(error)
+    }
+
+    return message.ERROR_INTERNAL_SERVER_CONTROLLER
+}
+
+const validarDados = async (usuario, contentType) => {
     let message = JSON.parse(JSON.stringify(config_message))
 
     // Valida se o formato de dados é JSON
     if(String(contentType).toLowerCase() != 'application/json') return message.ERROR_CONTENT_TYPE // Status code 415
 
-    if(auth.nome == undefined || auth.nome == null || auth.nome == '' || auth.nome.length > 100 || typeof(auth.nome) != 'string'){
+    if(usuario.nome == undefined || usuario.nome == null || usuario.nome == '' || usuario.nome.length > 255 || typeof(usuario.nome) != 'string'){
         message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO'
         return message.ERROR_BAD_REQUEST // 400
     }
 
-    return false
-}
+    if(usuario.email == undefined || usuario.email == null || usuario.email == '' || usuario.email.length > 255 || typeof(usuario.email) != 'string'){
+        message.ERROR_BAD_REQUEST.field = '[EMAIL] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST // 400
+    }
 
-const validarId = async (id) => {
-    let message = JSON.parse(JSON.stringify(config_message))
-    
-    if(id == undefined || id == '' || id == null || id <= 0 || isNaN(id)){
-        message.ERROR_BAD_REQUEST.field = '[ID] INVÁLIDO'
+    if(usuario.senha == undefined || usuario.senha == null || usuario.senha == '' || usuario.senha.length > 30 || typeof(usuario.senha) != 'string'){
+        message.ERROR_BAD_REQUEST.field = '[SENHA] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST // 400
+    }
+
+    if(usuario.nivel_de_acesso == undefined || usuario.nivel_de_acesso == null || usuario.nivel_de_acesso == '' || usuario.nivel_de_acesso.length > 1 || typeof(usuario.nivel_de_acesso) != 'number'){
+        message.ERROR_BAD_REQUEST.field = '[NIVEL DE ACESSO] INVÁLIDO'
         return message.ERROR_BAD_REQUEST // 400
     }
 
@@ -45,5 +83,5 @@ const montarMensagem = async (base,status,response = null) => {
 
 
 module.exports = {
-
+    autenticarUsuario
 }
