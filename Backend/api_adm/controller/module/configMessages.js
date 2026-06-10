@@ -7,7 +7,7 @@
 
 // Padronização de cabeçalho para retorno dos endpoints da API
 const DEFAULT_MESSAGE = {
-    "api_description":  "API para gerenciar o controle de filmes.",
+    "api_description":  "API para gerenciar o controle da empresa Sorvetudos.",
     "developer"      :  "Julio Augusto.",
     "version"        :  "1.0.4.26",
     "status"         :  Boolean,

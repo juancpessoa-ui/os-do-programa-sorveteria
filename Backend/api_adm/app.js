@@ -7,11 +7,13 @@
 
 /***************************************
     Dependencias para rodar o projeto:
-        npm install express
-        npm install cors
-        npm install body-parser
-        npm install mysql2
-        npm install knex
+        npm install express --save
+        npm install cors --save
+        npm install body-parser --save
+        npm install mysql2 --save
+        npm install knex --save
+        npm install multer --save
+        npm install node-fetch --save
  **************************************/
 
 // IMPORT das dependências para criar a API
