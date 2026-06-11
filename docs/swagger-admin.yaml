@@ -38,24 +38,6 @@ paths:
         '500':
           description: Error Internal Server (Model or Controller)
 
-  /v1/sorvetudos/admin/auth/validate:
-    get:
-      tags:
-        - auth
-      summary: Valida a sessão do usuário
-      description: Verifica a validade e integridade do token atual
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Auth'
-        '404':
-          description: Not Found
-        '500':
-          description: Error Internal Server (Model or Controller)
-
   /v1/sorvetudos/admin/usuarios:
     post:
       tags:
@@ -193,9 +175,9 @@ paths:
       summary: Adiciona um novo produto
       description: Adiciona um novo produto no banco de dados
       requestBody:
-        description: JSON contendo os dados do novo produto a ser inserido no sistema
+        description: Form-Data contendo os dados do novo produto a ser inserido no sistema
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/Produto'
         required: true
@@ -203,7 +185,7 @@ paths:
         '201':
           description: Successful operation
           content:
-            application/json:
+            multipart/form-data:
               schema:
                 $ref: '#/components/schemas/Produto'
         '400':
@@ -257,10 +239,11 @@ paths:
         '404':
           description: Not Found
     put:
+      post:
       tags:
         - produtos
-      summary: Update an existing produto
-      description: Update an existing produto by Id
+      summary: Atualiza um produto
+      description: Adiciona um novo produto no banco de dados
       parameters:
         - name: id
           in: path
@@ -270,23 +253,23 @@ paths:
             type: integer
             format: int64
       requestBody:
-        description: Update an existent produto in the store
+        description: Form-Data contendo os dados do produto a ser atualizado no sistema
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/Produto'
         required: true
       responses:
-        '200':
+        '201':
           description: Successful operation
           content:
-            application/json:
+            multipart/form-data:
               schema:
                 $ref: '#/components/schemas/Produto'
         '400':
-          description: Invalid ID supplied
-        '404':
-          description: Not Found
+          description: Invalid input
+        '415':
+          description: Error Content type
         '500':
           description: Error Internal Server (Model or Controller)
     delete:
@@ -1101,25 +1084,20 @@ components:
   schemas:
     Login:
       required:
+        - nome
         - email
         - senha
+        - nivel_de_acesso
       type: object
       properties:
+        nome:
+          type: string
         email:
           type: string
         senha:
           type: string
-
-    Auth:
-      required:
-        - token
-        - usuario
-      type: object
-      properties:
-        token:
+        nivel_de_acesso:
           type: string
-        usuario:
-          $ref: '#/components/schemas/Usuario'
 
     Usuario:
       required:
@@ -1147,6 +1125,14 @@ components:
         - preco
         - status
         - tamanho
+        - img
+        - categorias
+        - sabores
+        - ingredientes
+        - tags
+        - promocoes
+        - lote
+        - tamanhos
       type: object
       properties:
         id:
@@ -1162,7 +1148,7 @@ components:
         tamanho:
           type: string
         img:
-          type: string
+          type: file
         categorias:
           type: array
           items:
@@ -1183,7 +1169,11 @@ components:
           type: array
           items:
             type: integer
-        lotes:
+        lote:
+          type: array
+          items:
+            type: integer
+        tamanhos:
           type: array
           items:
             type: integer
@@ -1259,3 +1249,13 @@ components:
           type: string
         quantidade:
           type: integer
+        
+    Tamanho:
+      required:
+        - tamanho
+      type: object
+      properties:
+        id:
+          type: integer
+        tamanho:
+          type: string
