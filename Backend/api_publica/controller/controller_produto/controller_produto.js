@@ -2,7 +2,7 @@
  * Objetivo: Arquivo responsavel pelo CRUD no banco de dados MySQL na tabela filme 
  * Autor: Juan Carlos 
  * Data: 11/06/2026
- * Versão: 1.0
+ * Versão: 1.0.5.26
  *******************************************************/
 
 //Import do arquivo de padronização de mensagens
@@ -79,37 +79,37 @@ const buscarProduto = async function(id){
 }
 
 
-// const buscarProdutoNome = async function(nomeProduto){
+const buscarProdutoNome = async function(nomeProduto){
     
     
-//     let message = JSON.parse(JSON.stringify(config_message))
+    let message = JSON.parse(JSON.stringify(config_message))
     
-//     try {
-//         //Validaçção para garantir que o ID seja válido
-//         if(nomeProduto == undefined || nomeProduto == '' ||  typeof nomeProduto == 'string' ){
-//             message.ERROR_BAD_REQUEST.field = '[ID] INVÁLIDO'
-//             return message.ERROR_BAD_REQUEST //400
-//         }else{
-//             let result = await produtoDAO.selectByProdutoNome(nomeProduto)
+    try {
+        //Validaçção para garantir que o ID seja válido
+        if(nomeProduto == undefined || nomeProduto == '' ||  typeof nomeProduto == 'string' ){
+            message.ERROR_BAD_REQUEST.field = '[ID] INVÁLIDO'
+            return message.ERROR_BAD_REQUEST //400
+        }else{
+            let result = await produtoDAO.selectByProdutoNome(nomeProduto)
 
-//             if(result){
-//                 if(typeof result == 'string'){
-//                     message.DEFAULT_MESSAGE.status = message.SUCCESS_RESPONSE.status
-//                     message.DEFAULT_MESSAGE.status_code = message.SUCCESS_RESPONSE.status_code
-//                     message.DEFAULT_MESSAGE.response.produto = result
+            if(result){
+                if(typeof result == 'string'){
+                    message.DEFAULT_MESSAGE.status = message.SUCCESS_RESPONSE.status
+                    message.DEFAULT_MESSAGE.status_code = message.SUCCESS_RESPONSE.status_code
+                    message.DEFAULT_MESSAGE.response.produto = result
 
-//                     return message.DEFAULT_MESSAGE //200
-//                 }else{
-//                     return message.ERROR_NOT_FOUND //404
-//                 }
-//             }else{
-//                 return message.ERROR_INTERNAL_SERVER_MODEL //500 (Model)
-//             }
-//         }
-//     } catch (error) {
-//         return message.ERROR_INTERNAL_SERVER_CONTROLLER //500
-//     }
-// }
+                    return message.DEFAULT_MESSAGE //200
+                }else{
+                    return message.ERROR_NOT_FOUND //404
+                }
+            }else{
+                return message.ERROR_INTERNAL_SERVER_MODEL //500 (Model)
+            }
+        }
+    } catch (error) {
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER //500
+    }
+}
 
 const filtrarProduto = async function(filtro) {
 
@@ -154,6 +154,7 @@ const filtrarProduto = async function(filtro) {
  module.exports = {
     listarProduto,
     buscarProduto,
-    filtrarProduto
+    filtrarProduto,
+    buscarProdutoNome
     
 }

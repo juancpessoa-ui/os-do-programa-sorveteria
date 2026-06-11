@@ -1,5 +1,5 @@
 /*******************************************************
- * Objetivo:  Arquivo responsavel pelo CRUD no banco de dados MySQL na tabela filme 
+ * Objetivo:  Arquivo responsavel pelo CRUD no banco de dados MySQL na tabela Produto 
  * Autor: Juan Carlos 
  * Data: 11/06/2026
  * Versão: 1.0
@@ -36,6 +36,31 @@ const selectAllProduto = async function() {
         }
 
     } catch (error) {
+        return false
+    }
+}
+// Função para retornar produtos filtrando pelo nome
+const selectByProdutoNome = async function(nomeProduto) {
+
+    try {
+
+        let sql = `
+            SELECT *
+            FROM tbl_produto
+            WHERE nome LIKE '%${nomeProduto}%'
+            ORDER BY nome ASC
+        `
+
+        let result = await knexConex.raw(sql)
+
+        if(Array.isArray(result)){
+            return result[0]
+        }else{
+            return false
+        }
+
+    } catch (error) {
+        console.log(error)
         return false
     }
 }
@@ -96,7 +121,7 @@ const selectAllProduto = async function() {
 
 
  module.exports = {
-
+    selectByProdutoNome,
     selectAllProduto,
     selectByIdProduto,
     selectbyFiltro

@@ -1,7 +1,7 @@
 /*********************************************************************************************************
  * Objetivo: Arquivo responsável pela validação, tratamento e manipulação de dados para o CRUD de categoria
- * Data: 09/06/2026
- * Autor: Julio Augusto
+ * Data: 11/06/2026
+ * Autor: Juan Carlos
  * Versão: 1.0.5.26
  * *******************************************************************************************************/
 
@@ -76,9 +76,6 @@ const montarMensagem = async (base,status,response = null) => {
 
 
 module.exports = {
-    inserirNovaCategoria,
-    atualizarCategoria,
     listarCategoria,
-    buscarCategoria,
-    excluirCategoria
+    buscarCategoria
 }

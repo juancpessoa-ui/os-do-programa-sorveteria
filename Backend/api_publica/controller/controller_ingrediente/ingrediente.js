@@ -1,7 +1,7 @@
 /*********************************************************************************************************
  * Objetivo: Arquivo responsável pela validação, tratamento e manipulação de dados para o CRUD de ingrediente
- * Data: 09/06/2026
- * Autor: Julio Augusto
+ * Data: 11/06/2026
+ * Autor: juan Carlos
  * Versão: 1.0.5.26
  * *******************************************************************************************************/
 
