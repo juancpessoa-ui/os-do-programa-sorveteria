@@ -1,17 +1,20 @@
 //Função que renderiza o header, ela é acionada automaticamente ao arquivo ser carregado
 (function () {
 
+    const inPagesFolder = window.location.pathname.includes("/src/pages/");
+    const basePath = inPagesFolder ? "../../" : "./";
+
   //Esse array carrega todas as informações dos links na nav
     //href = indica para onde o link vai ao ser clicado
     //label = texto que está sendo escrito no menu
     //icon = imagem do link de navegação
     //anchor = define se o link tem uma ancora específica 
   const NAV = [
-    { href: "index.html", label: "Início", icon: "<img src='./assets/home.svg'>", anchor: null },
-    { href: "index.html#sabores", label: "Sabores", icon: "<img src='./assets/sabores.svg'>", anchor: "sabores" },
-    { href: "index.html#destaques", label: "Destaques", icon: "<img src='./assets/destaques.svg'>", anchor: "destaques" },
-    { href: "index.html#milkshakes", label: "Milkshakes", icon: "<img src='./assets/milkshakes.svg'>", anchor: "milkshakes" },
-    { href: "index.html#contato", label: "Contato", icon: "<img src='./assets/contato.svg'>", anchor: "contato" }
+    { href: `${basePath}index.html`, label: "Início", icon: `<img src='${basePath}src/img/icons/home.svg'>`, anchor: null },
+    { href: `${basePath}index.html#sabores`, label: "Sabores", icon: `<img src='${basePath}src/img/icons/sabores.svg'>`, anchor: "sabores" },
+    { href: `${basePath}index.html#destaques`, label: "Destaques", icon: `<img src='${basePath}src/img/icons/destaques.svg'>`, anchor: "destaques" },
+    { href: `${basePath}index.html#milkshakes`, label: "Milkshakes", icon: `<img src='${basePath}src/img/icons/milkshakes.svg'>`, anchor: "milkshakes" },
+    { href: `${basePath}index.html#contato`, label: "Contato", icon: `<img src='${basePath}src/img/icons/contato.svg'>`, anchor: "contato" }
   ];
 
   //Pega o nome da pagina atual de acordo com a url
@@ -24,8 +27,8 @@
   function logoHtml(size) {
     //utiliza operador ternário para identificar a classe que a logo vai ter (logo-lg ou logo)
     const classe = size === "lg" ? "logo logo-lg" : "logo";
-    return `<a href="index.html" class="${classe}" aria-label="Sorvetudos">
-      <img src="assets/sorvetudos-logo.png" alt="Sorvetudos">
+    return `<a href="${basePath}index.html" class="${classe}" aria-label="Sorvetudos">
+      <img src="${basePath}src/img/logo/sorvetudos-logo.png" alt="Sorvetudos">
       <span>Sorvetudos<em>.</em></span>
     </a>`;
   }
@@ -34,7 +37,10 @@
   //função que retorna a lista de menus de navegação colocando o index como ativo (corrigir depois para que ele identifique os outros menus como ativo também)
   function navList() {
     return NAV.map(n => {
-      const active = !n.anchor && path === n.href ? "active" : "";
+        console.log(path)
+        console.log(!n.anchor)
+        console.log(n.href)
+      const active = !n.anchor && './'+path === n.href ? "active" : "";
       return `<a href="${n.href}" class="${active}"><span>${n.icon}</span>${n.label}</a>`;
     }).join("");
   }
@@ -97,7 +103,7 @@
       const valorPesquisa = new FormData(form).get("pesquisa") || "";
 
       //manda para pagina de pesquisa enviando o valorPesquisa na url codificada, de forma que não quebre a url
-      location.href = "search.html?pesquisa=" + encodeURIComponent(valorPesquisa);
+      location.href = `${basePath}src/pages/search.html?pesquisa=` + encodeURIComponent(valorPesquisa);
     });
   });
 })();

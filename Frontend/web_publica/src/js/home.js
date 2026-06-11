@@ -20,9 +20,9 @@
     //a variavel "i" é o indice do array do produto a ser renderizado, esse indice é utilizado no delay da animação para 
     //dar o movimento em cadeia da animação
   function productCardHtml(produto, i) {
-    return `<a href="product.html?id=${produto.id}" class="product-card" style="animation-delay:${i*50}ms">
+    return `<a href="./src/pages/product.html?id=${produto.id}" class="product-card" style="animation-delay:${i*50}ms">
       <div class="product-img">
-        <img src="${produto.image}" alt="${escapeHtml(produto.name)}" loading="lazy">
+        <img src="${'./src' + produto.image}" alt="${escapeHtml(produto.name)}" loading="lazy">
         ${produto.tag ? `<span class="product-tag">${escapeHtml(produto.tag)}</span>` : ""}
       </div>
       <div class="product-info">
