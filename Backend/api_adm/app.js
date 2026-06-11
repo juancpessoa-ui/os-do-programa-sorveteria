@@ -73,6 +73,7 @@ const tagRouter = require('./routes/tag.routes.js')
 const usuarioRouter = require('./routes/usuario.routes.js')
 const authRouter = require('./routes/auth.routes.js')
 const tamanhoRouter = require('./routes/tamanho.routes.js')
+const filtroRouter = require('./routes/filtro.routes.js')
 
 // categoria
 app.use('/v1/sorvetudos/admin/categorias', cors(), verifyJWT, categoriaRouter)
@@ -103,6 +104,9 @@ app.use('/v1/sorvetudos/admin/tamanhos', cors(),  verifyJWT, tamanhoRouter)
 
 // auth login
 app.use('/v1/sorvetudos/admin/auth/login', cors(), authRouter)
+
+// filtro
+app.use('/v1/sorvetudos/admin/filtro', cors(), filtroRouter)
 
 // Iniciando o Servidor
 app.listen(port, () => {
