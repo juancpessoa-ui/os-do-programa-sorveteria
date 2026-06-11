@@ -18,7 +18,7 @@ const bodyParserJSON = bodyParser.json()
 
 const {
     autenticarUsuario
-} = require('../controller/controller_auth/controller_auth.js')
+} = require('../controller/auth/controller_auth.js')
 
 // endpoint para autenticar usuario
 router.post('/', bodyParserJSON, async (req,res) => {

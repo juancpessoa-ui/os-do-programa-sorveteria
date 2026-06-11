@@ -22,7 +22,7 @@ const {
     listarTamanho,
     buscarTamanho,
     excluirTamanho
-} = require('../controller/controller_tamanho/controller_tamanho.js')
+} = require('../controller/tamanho/controller_tamanho.js')
 
 // tamanhos
 router.post('/', bodyParserJSON, async (req,res) => {

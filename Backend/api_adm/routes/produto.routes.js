@@ -9,13 +9,6 @@
 const express = require('express')
 const multer = require('multer') // upload de arquivos
 
-// configuração para o multer enviar o arquivo de imagem
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/')
-    }
-})
-
 // instancia para criar um objeto com as caracteristicas do multer
 const upload = multer()
 
@@ -33,7 +26,7 @@ const {
     listarProduto,
     buscarProduto,
     excluirProduto
-} = require('../controller/controller_produto/controller_produto.js')
+} = require('../controller/produto/controller_produto.js')
 
 const formatarJson = async (dados) => {
     const produto = {
