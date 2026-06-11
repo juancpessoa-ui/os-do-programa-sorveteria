@@ -1,369 +1,167 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorvetudos</title>
-    <link rel="shortcut icon" href="src/img/sorvetudos-logo2 1.ico" type="image/x-icon">
-    <script src="https://kit.fontawesome.com/4acd459722.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sorvetudos</title>
+  <meta name="description" content="Sorvetudos: sorvetes artesanais cremosos feitos diariamente em São Paulo.">
+  <link rel="icon" href="assets/sorvetudos-logo.png">
 
-    <!-- IMPORT FONTE -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <!--Fontes-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=Inter:wght@400;500;600;700&display=swap">
 
-    <!-- IMPORT CSS -->
-    <link rel="stylesheet" href="./src/css/variables.css">
-    <link rel="stylesheet" href="./src/css/reset.css">
-    <link rel="stylesheet" href="./src/css/aside.css">
-    <link rel="stylesheet" href="./src/css/home.css">
 
-    <!-- IMPORT JAVASCRIPT -->
-    <script type="module" src="./src/js/main.js" defer></script>
+  <!--CSS-->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!--JAVASCRIPT-->
+  <script src="js/products.js" defer></script>
+  <script src="js/header.js" defer></script>
+  <script src="js/footer.js" defer></script>
+  <script src="js/home.js" defer></script>
 
 </head>
+
+
 <body>
-    <aside>
-        <header>
-            <div class="sorvetudos-header-container">
-                <figure class="identificador">
-                    <img src="src/img/sorvetudos-logo-site.png" alt="logo-sorvetudos" class="logo">
-                    <figcaption class="logo-paragrafo">Sorvetudos.</figcaption>
-                </figure>
-            </div>
-        </header>
-
-        <div class="search-header-container">
-            <input id="search-header" class="search-header" type="search" placeholder="Buscar sabor…">
+  <div id="header-container"></div>
+  <main class="main">
+    <section class="hero hero-bg">
+      <div class="hero-grid">
+        <div class="surgir">
+          <div class="hero-eyebrow">Coleção verão · 2026</div>
+          <h1>Sorvete <em>artesanal</em><br>que derrete<br>devagar.</h1>
+          <p class="lead">Receitas feitas todos os dias com leite fresco da fazenda e ingredientes selecionados ao redor do mundo. Sem corantes, sem pressa.</p>
+          <div class="hero-actions">
+            <a href="#sabores" class="btn-dark">Explorar sabores <span class="circle">→</span></a>
+          </div>
+          <dl class="hero-stats">
+            <div><dt>Sabores</dt><dd>67<em>+</em></dd></div>
+            <div><dt>Aprovação</dt><dd>98<em>%</em></dd></div>
+            <div><dt>Top</dt><dd>10<em>Mundial</em></dd></div>
+          </dl>
         </div>
 
-        <nav>
-            <h2>navegar</h2>
-            <ul>
-                <li><figure id="home-figure"><img class="home-icon"  src="src/img/aside_icons/home.png" alt="home-icon"> <figcaption>Home</figcaption></figure></li>
-                <li><figure id="destaque-figure"><img class="destaque-icon"  src="src/img/aside_icons/destaques.png" alt="destaque-icon"> <figcaption>Destaque</figcaption></figure></li>
-                <li><figure id="sabores-figure"><img class="sabores-icon"  src="src/img/aside_icons/sabores.png" alt="sabores-icon"> <figcaption>Sabores</figcaption></figure></li>
-                <li><figure id="milkshakes-figure"><img class="milkshakes-icon"  src="src/img/aside_icons/milkshakes.png" alt="milkshakes-icon"> <figcaption>Milkshakes</figcaption></figure></li>
-                <li><figure id="contato-figure"><img class="contato-icon"  src="src/img/aside_icons/contato.svg" alt="contato-icon"> <figcaption>Contato</figcaption></figure></li>
-            </ul>
-        </nav>
-        <hr>
-        <footer> <p>Feito em São Paulo com leite fresco da fazenda.</p></footer>
-    </aside>
-
-    <main>
-        <div class="home-container">
-            
-            <section class="hero" id="hero">
-                <div class="back-azul"></div>
-                <div class="left">
-                    <div class="colecao-container">
-                        <div class="pre-colecao"></div>
-                        <p class="colecao">Coleção verão · 2026</p>
-                    </div>
-                    <h1>Sorvete <span class="bold">artesanal</span> que derrete devagar.</h1>
-                    <p class="descricao">Receitas feitas todos os dias com leite fresco da fazenda e ingredientes selecionados ao redor do mundo. Sem corantes, sem pressa.</p>
-                    <button class="explorar-sabores" id="explorar-sabores">
-                        <p>Explorar Sabores</p>
-                        <div class="seta-container">
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </div>
-                    </button>
-
-                    <hr>
-
-                    <div class="estatisticas">
-                        <div class="sabores-container">
-                            <p>Sabores</p>
-                            <p>67 <span class="bold">+</span></p>
-                        </div>
-                        
-                        <div class="aprovacao-container">
-                            <p>Aprovação</p>
-                            <p>98<span class="bold">%</span></p>
-                        </div>
-
-                        <div class="top-container">
-                            <p>Top</p>
-                            <p>10 <span class="bold">mundial</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="right">
-                    <div class="tag">
-                        <div class="img">
-                            <img src="src/img/sorvetudos-logo2 1.ico" alt="folha-100-natural">
-                        </div>
-                        <div class="descricao-tag">
-                            <p>100% natural</p>
-                            <p class="lighter">Sem corantes</p>
-                        </div>
-                    </div>
-                    <figure class="produto-hero">
-                        <img src="https://www.alimentosindustrializados.com.br/wp-content/uploads/2023/04/sorvete-scaled.jpg" alt="sorvete-hero">
-                        <p class="edicao">Edição Especial</p>
-                        <figcaption>Chocolate Supremo</figcaption>
-                    </figure>
-                </div>
-            </section>
-
-            <section class="destaque" id="destaque">
-                <p class="introducao-section">#01 · Em destaque</p>
-                <div class="destaque-produto-container">
-                    <div class="img">
-                        <div class="tag">
-                            <p>Em Alta</p>
-                        </div>
-                        <img src="https://png.pngtree.com/thumb_back/fh260/background/20250615/pngtree-creamy-chocolate-soft-serve-ice-cream-cone-on-solid-background-image_17430598.jpg" alt="sorvete-imagem">
-                    </div>
-                    <div class="right">
-                        <p class="categoria">Cremosos</p>
-                        <h2 class="nome-produto">Chocolate Supremo</h2>
-                        <p class="descricao">Um sorvete intensamente cremoso feito com chocolate belga 70% cacau, leite fresco e um toque de baunilha de Madagascar. Cada colherada derrete devagar, liberando notas profundas e levemente amargas.</p>
-                        <hr>
-                        <div class="oferta">
-                            <p>A partir de</p>
-                            <p class="preco">R$18,90</p>
-                        </div>
-                        <button class="provar">
-                            <p>Provar Agora</p>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <section class="beneficios">
-                <div class="beneficio">
-                    <i class="fa-regular fa-lemon"></i>
-                    <h3>Ingredientes reais</h3>
-                    <p>
-                        Frutas selecionadas, leite de fazenda e chocolate de alta
-                        qualidade. Sem atalhos.
-                    </p>
-                </div>
-            
-                <div class="beneficio">
-                    <i class="fa-regular fa-lightbulb"></i>
-                    <h3>Receitas autorais</h3>
-                    <p>
-                        Cada sabor é desenvolvido pela nossa chef por meses até chegar
-                        até você.
-                    </p>
-                </div>
-            
-                <div class="beneficio">
-                    <i class="fa-solid fa-truck-fast"></i>
-                    <h3>Chega gelado</h3>
-                    <p>
-                        Entrega em até 30 minutos em embalagem térmica reutilizável
-                        dentro de São Paulo.
-                    </p>
-                </div>
-            </section>
-            
-            <section class="sabores" id="sabores">
-                <p class="introducao-section">#02 · Catálogo</p>
-            
-                <div class="titulo-sabores">
-                    <div class="left">
-                        <h2>Todos os sabores.</h2>
-                        <p>Feitos hoje, prontos para o seu caso em poucos minutos.</p>
-                    </div>
-            
-                    <div class="right">
-                        <input type="search" placeholder="Buscar sabor...">
-                        <button>
-                            <i class="fa-solid fa-sliders"></i>
-                            Filtros
-                        </button>
-                    </div>
-                </div>
-            
-                <div class="categorias">
-                    <button class="active">Todos</button>
-                    <button>Cremosos</button>
-                    <button>Frutas</button>
-                    <button>Nuts</button>
-                    <button>Milkshakes</button>
-                    <button>Sundaes</button>
-                    <button>Clássicos</button>
-                </div>
-            
-                <div class="lista-sabores">
-            
-                    <article class="sabor-card">
-                        <img src="https://png.pngtree.com/thumb_back/fh260/background/20250615/pngtree-creamy-chocolate-soft-serve-ice-cream-cone-on-solid-background-image_17430598.jpg" alt="">
-                        <div class="info">
-                            <span class="categoria">Cremosos</span>
-                            <h3>Chocolate Supremo</h3>
-                            <p>Chocolate belga 70%</p>
-                        </div>
-                        <p class="preco">R$ 18,90</p>
-                    </article>
-            
-                    <article class="sabor-card">
-                        <img src="https://png.pngtree.com/thumb_back/fh260/background/20250615/pngtree-creamy-chocolate-soft-serve-ice-cream-cone-on-solid-background-image_17430598.jpg" alt="">
-                        <div class="info">
-                            <span class="categoria">Frutas</span>
-                            <h3>Morango Nevado</h3>
-                            <p>Morango fresco</p>
-                        </div>
-                        <p class="preco">R$ 16,50</p>
-                    </article>
-            
-                    <article class="sabor-card">
-                        <img src="https://png.pngtree.com/thumb_back/fh260/background/20250615/pngtree-creamy-chocolate-soft-serve-ice-cream-cone-on-solid-background-image_17430598.jpg" alt="">
-                        <div class="info">
-                            <span class="categoria">Nuts</span>
-                            <h3>Pistache Premium</h3>
-                            <p>Pistache siciliano</p>
-                        </div>
-                        <p class="preco">R$ 22,00</p>
-                    </article>
-            
-                    <article class="sabor-card">
-                        <img src="https://png.pngtree.com/thumb_back/fh260/background/20250615/pngtree-creamy-chocolate-soft-serve-ice-cream-cone-on-solid-background-image_17430598.jpg" alt="">
-                        <div class="info">
-                            <span class="categoria">Clássicos</span>
-                            <h3>Baunilha Cream</h3>
-                            <p>Baunilha de Madagascar</p>
-                        </div>
-                        <p class="preco">R$ 15,90</p>
-                    </article>
-            
-                    <article class="sabor-card">
-                        <img src="https://png.pngtree.com/thumb_back/fh260/background/20250615/pngtree-creamy-chocolate-soft-serve-ice-cream-cone-on-solid-background-image_17430598.jpg" alt="">
-                        <div class="info">
-                            <span class="categoria">Cremosos</span>
-                            <h3>Cookies & Cream</h3>
-                            <p>Biscoito e chocolate</p>
-                        </div>
-                        <p class="preco">R$ 17,50</p>
-                    </article>
-            
-                    <article class="sabor-card">
-                        <img src="https://png.pngtree.com/thumb_back/fh260/background/20250615/pngtree-creamy-chocolate-soft-serve-ice-cream-cone-on-solid-background-image_17430598.jpg" alt="">
-                        <div class="info">
-                            <span class="categoria">Milkshakes</span>
-                            <h3>Milkshake de Ovomaltine</h3>
-                            <p>Ovomaltine crocante</p>
-                        </div>
-                        <p class="preco">R$ 24,90</p>
-                    </article>
-            
-                </div>
-            
-                <button class="ver-mais">
-                    Ver mais sabores
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
-            </section>
-            
-            <section class="cards-promocionais">
-                <article class="card-promocional">
-                    <img src="src/img/milkshake-banner.png" alt="Milkshake de Ovomaltine">
-            
-                    <div class="conteudo">
-                        <span>Milkshakes</span>
-            
-                        <h2>Milkshake de Ovomaltine</h2>
-            
-                        <p>
-                            Milkshake encorpado batido na hora com sorvete de creme e
-                            flocos crocantes de Ovomaltine.
-                        </p>
-            
-                        <div class="bottom">
-                            <p class="preco">R$ 24,90</p>
-            
-                            <a href="#">
-                                Provar
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-            
-                <article class="card-promocional">
-                    <img src="src/img/sundae-caramelo.png" alt="Sundae Caramelo">
-            
-                    <div class="conteudo">
-                        <span>Sundaes</span>
-            
-                        <h2>Sundae Caramelo</h2>
-            
-                        <p>
-                            Sundae com sorvete de creme, calda artesanal de caramelo
-                            salgado e amêndoas torradas.
-                        </p>
-            
-                        <div class="bottom">
-                            <p class="preco">R$ 25,50</p>
-            
-                            <a href="#">
-                                Provar
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-            </section>
-            
-            <footer class="footer" id="contato">
-            
-                <div class="footer-about">
-                    <p class="introducao-section">Sobre nós</p>
-            
-                    <h2>
-                        Pequenas porções de
-                        <span>felicidade</span>,
-                        todos os dias.
-                    </h2>
-            
-                    <p>
-                        Sorvetudos é a sorveteria artesanal que adoça o seu dia com
-                        sabores cremosos, feitos diariamente em São Paulo com leite
-                        fresco da fazenda e ingredientes selecionados.
-                    </p>
-            
-                    <div class="redes">
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    </div>
-                </div>
-            
-                <div class="footer-links">
-                    <h3>Explorar</h3>
-            
-                    <ul>
-                        <li><a href="#sabores">Sabores</a></li>
-                        <li><a href="#destaque">Destaques</a></li>
-                        <li><a href="#">Milkshakes</a></li>
-                        <li><a href="#">Sundaes</a></li>
-                        <li><a href="#">Nossas lojas</a></li>
-                    </ul>
-                </div>
-            
-                <div class="footer-contato">
-                    <h3>Contato</h3>
-            
-                    <ul>
-                        <li>osdoprograma@sorvetudos.com.br</li>
-                        <li>+55 11 4002-8922</li>
-                        <li>R. das Flores, 123<br>Vila Madalena - São Paulo</li>
-                    </ul>
-                </div>
-            
-            </footer>
-            
-            <div class="copyright">
-                <p>© 2026 Sorvetudos Sorveteria. Todos os direitos reservados.</p>
+        <div class="hero-card">
+          <div class="hero-img-wrap">
+            <img src="assets/hero-icecream.jpg" alt="Sorvete artesanal Sorvetudos">
+            <div class="hero-img-caption">
+              <p class="small">Edição especial</p>
+              <p class="big">Chocolate Supremo 70%</p>
             </div>
-
+          </div>
+          <div class="hero-pill pill-top surgir" style="animation-delay:150ms">
+            <div class="ic" style="background:var(--mint)">🌿</div>
+            <div><div class="t">100% natural</div><div class="s">Sem corantes</div></div>
+          </div>
         </div>
-    </main>
+      </div>
+    </section>
+
+    <section id="destaques" class="section" style="padding-top:80px;padding-bottom:0">
+      <div class="featured-head">
+        <div>
+          <p class="eyebrow">#01 · Em destaque</p>
+          <h2>O sabor da semana.</h2>
+        </div>
+        <a href="product.html?id=chocolate-supremo" class="featured-link">Ver produto ↗</a>
+      </div>
+      <a href="product.html?id=chocolate-supremo" class="featured-card">
+        <div class="featured-img">
+          <img src="assets/ice-chocolate.jpg" alt="Chocolate Supremo">
+          <span class="featured-tag">Em Alta</span>
+        </div>
+        <div>
+          <div class="featured-meta">Cremosos</div>
+          <h3>Chocolate Supremo</h3>
+          <p class="desc">Um sorvete intensamente cremoso feito com chocolate belga 70% cacau, leite fresco e um toque de baunilha de Madagascar. Cada colherada derrete devagar, liberando notas profundas e levemente amargas.</p>
+          <div class="featured-foot">
+            <div><p class="featured-price-l">A partir de</p><p class="featured-price-v">R$ 18,90</p></div>
+            <span class="featured-cta">Provar agora →</span>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <section class="section" style="padding-top:80px;padding-bottom:0">
+      <div class="manifesto">
+        <div>
+          <div class="ic"><img src="assets/folha.svg" alt="Ingredientes"></div>
+          <h4>Ingredientes reais</h4>
+          <p>Frutas selecionadas, leite da fazenda e chocolate belga 70%. Sem atalhos.</p>
+        </div>
+        <div>
+          <div class="ic"><img src="assets/medalha.svg" alt="Ingredientes"></div>
+          <h4>Receitas autorais</h4>
+          <p>Cada sabor é desenvolvido pela nossa chef pâtissière por meses até chegar até você.</p>
+        </div>
+        <div>
+          <div class="ic"><img src="assets/caminhao.svg" alt="Logistica"></div>
+          <h4>Chega gelado</h4>
+          <p>Entrega em até 30 minutos em embalagem térmica reutilizável dentro de São Paulo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="sabores" class="section" style="padding-top:80px;padding-bottom:0">
+      <div class="catalog-head">
+        <div>
+          <p class="eyebrow">#02 · Catálogo</p>
+          <h2>Todos os <em>sabores</em>.</h2>
+          <p class="sub">Feitos hoje, prontos para a sua casa em poucos minutos.</p>
+        </div>
+        <div class="catalog-controls">
+          <div class="catalog-search">
+            <input id="catalog-search" placeholder="Buscar sabor…" autocomplete="off">
+          </div>
+          <button id="filters-btn" class="btn-filters">
+            ⚙ Filtros <span id="filters-badge" class="badge" style="display:none"></span>
+          </button>
+        </div>
+      </div>
+      <div id="categoria-catalogo" class="categoria-catalogo"></div>
+      <div id="filters-panel" class="filters-panel"></div>
+      <div id="catalog-grid" class="grid-2"></div>
+      <div id="see-more" class="see-more" style="display:none">
+        <button>Ver mais sabores <span class="circle">→</span></button>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0;padding-bottom:0">
+      <div class="spotlight">
+        <a href="product.html?id=milkshake-ovomaltine" id="milkshakes">
+          <img src="assets/ice-milkshake.jpg" alt="Milkshake de Ovomaltine">
+          <div class="overlay"></div>
+          <div class="content">
+            <p class="cat">Milkshakes</p>
+            <h3>Milkshake de Ovomaltine</h3>
+            <p class="desc">Milkshake encorpado batido na hora com sorvete de creme e flocos crocantes de Ovomaltine.</p>
+            <div class="foot">
+              <span class="price">R$ 24,90</span>
+              <span class="more">Provar ↗</span>
+            </div>
+          </div>
+        </a>
+        <a href="product.html?id=sundae-caramelo" id="sundaes">
+          <img src="assets/ice-sundae.jpg" alt="Sundae Caramelo">
+          <div class="overlay"></div>
+          <div class="content">
+            <p class="cat">Sundaes</p>
+            <h3>Sundae Caramelo</h3>
+            <p class="desc">Sundae com sorvete de creme, calda artesanal de caramelo salgado, amêndoas torradas e chantilly fresco.</p>
+            <div class="foot">
+              <span class="price">R$ 23,50</span>
+              <span class="more">Provar ↗</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <div id="footer-container"></div>
+  </main>
+
 </body>
 </html>
