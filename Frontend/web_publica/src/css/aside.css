@@ -7,6 +7,7 @@ aside{
     background-color: white;
     gap: 2vw;
     padding: 1.5vw;
+    z-index: 100;
 }
 
 aside header div.sorvetudos-header-container{
@@ -131,4 +132,10 @@ aside footer p {
     font-weight: 400;
     font-family: var(--Inter);
     color: var(--lighter);
+}
+
+hr{
+    margin: 56px 0;
+    border: none;
+    border-top: 1px solid #E4EDF5;
 }

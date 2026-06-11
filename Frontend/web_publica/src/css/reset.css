@@ -21,5 +21,10 @@ html,body{
 
 body{
     background-color: #F5FBFF;    
+    display: flex;
 }
 
+main{
+    flex: 1;
+    padding: 0 60px;
+}
