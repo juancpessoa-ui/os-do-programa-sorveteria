@@ -19,7 +19,7 @@ const bodyParserJSON = bodyParser.json()
 const {
     listarPromocao,
     buscarPromocao
-} = require('../controller/controller_promocao/controller_promocao.js')
+} = require('../controller/controller_promocao/promocao.js')
 
 // Promoções
 

@@ -27,26 +27,7 @@ const config_message = require('./controller/module/configMessages.js')
 app.use(cors(corsOptions))
 
 // Recebe o token encaminhado nas requisições e solicitar as validações
-const verifyJWT = async (req, res, next) => {
-    let message = JSON.parse(JSON.stringify(config_message))
-    let mensagem = message.ERROR_UNAUTHORIZED
-    mensagem.message = "Token inválido."
 
-    // import da biblioteca para validação dos tokens
-    const jwt = require('./middleware/middlewareJWT.js')
-
-    // recebe o token encaminhado no header da requisição
-    let token = req.headers['x-access-token']
-
-    // valida a autencidade do token
-    const autenticidadeToken = await jwt.validateJWT(token)
-
-    // valida se a requisição podera continuar
-    if(autenticidadeToken) 
-        next()
-    else
-        return res.status(mensagem.status_code).json(mensagem).end()
-}
 
 
 
@@ -54,33 +35,29 @@ const verifyJWT = async (req, res, next) => {
 // Import das rotas
 const categoriaRouter = require('./routes/categoria.routes.js')
 const ingredienteRouter = require('./routes/ingrediente.routes.js')
-const loteRouter = require('./routes/lote.routes.js')
 const produtoRouter = require('./routes/produto.routes.js')
 const promocaoRouter = require('./routes/promocao.routes.js')
 const saborRouter = require('./routes/sabor.routes.js')
 const tagRouter = require('./routes/tag.routes.js')
-const usuarioRouter = require('./routes/usuario.routes.js')
-const authRouter = require('./routes/auth.routes.js')
-const tamanhoRouter = require('./routes/tamanho.routes.js')
-const filtroRouter = require('./routes/filtro.routes.js')
+
 
 // categoria
-app.use('/v1/sorvetudos/catalogo/categorias', cors(), verifyJWT, categoriaRouter)
+app.use('/v1/sorvetudos/catalogo/categorias', cors(),  categoriaRouter)
 
 // ingrediente
-app.use('/v1/sorvetudos/catalogo/ingredientes', cors(), verifyJWT, ingredienteRouter)
+app.use('/v1/sorvetudos/catalogo/ingredientes', cors(),  ingredienteRouter)
 
 // produto
-app.use('/v1/sorvetudos/catalogo/produtos', cors(), verifyJWT, produtoRouter)
+app.use('/v1/sorvetudos/catalogo/produtos', cors(),  produtoRouter)
 
 // promocao
-app.use('/v1/sorvetudos/catalogo/promocoes', cors(), verifyJWT, promocaoRouter)
+app.use('/v1/sorvetudos/catalogo/promocoes', cors(),  promocaoRouter)
 
 // sabor
-app.use('/v1/sorvetudos/catalogo/sabores', cors(), verifyJWT, saborRouter)
+app.use('/v1/sorvetudos/catalogo/sabores', cors(),  saborRouter)
 
 // tag
-app.use('/v1/sorvetudos/catalogo/tags', cors(), verifyJWT, tagRouter)
+app.use('/v1/sorvetudos/catalogo/tags', cors(),  tagRouter)
 
 
 // Iniciando o Servidor

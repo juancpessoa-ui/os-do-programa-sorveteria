@@ -4,6 +4,7 @@
  * Autor: Juan Carlos
  * Versão: 1.0.4.26
  * *********************************************************************************/
+
 // import do express
 const express = require('express')
 
@@ -16,21 +17,21 @@ const bodyParser = require('body-parser')
 const bodyParserJSON = bodyParser.json()
 
 const {
-    listarSabor,
-    buscarSabor 
-} = require('../controller/controller_sabor/controller_sabor.js')
+    listarIngrediente,
+    buscarIngrediente
+} = require('../controller/controller_ingrediente/ingrediente')
 
-// Sabores
+// Ingredientes
 
 router.get('/', async (req,res) => {
-    let result = await listarSabor()
+    let result = await listarIngrediente()
     res.status(result.status_code).json(result)
 })
 
 router.get('/:id', async (req,res) => {
     let id = req.params.id
 
-    let result = await buscarSabor(id)
+    let result = await buscarIngrediente(id)
     res.status(result.status_code).json(result)
 })
 

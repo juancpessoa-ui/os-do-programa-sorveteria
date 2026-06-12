@@ -16,23 +16,25 @@ const bodyParser = require('body-parser')
 // Criando um objeto para manipular dados do body da API em formato JSON
 const bodyParserJSON = bodyParser.json()
 
-const {
-    listarIngrediente,
-    buscarIngrediente
-} = require('../controller/controller_ingrediente/controller_ingrediente.js')
+const { 
+    listarCategoria,
+    buscarCategoria
+} = require('../controller/controller_categoria/categoria')
 
-// Ingredientes
+// categorias
+
 
 router.get('/', async (req,res) => {
-    let result = await listarIngrediente()
+    let result = await listarCategoria()
     res.status(result.status_code).json(result)
 })
 
 router.get('/:id', async (req,res) => {
     let id = req.params.id
 
-    let result = await buscarIngrediente(id)
+    let result = await buscarCategoria(id)
     res.status(result.status_code).json(result)
 })
+
 
 module.exports = router

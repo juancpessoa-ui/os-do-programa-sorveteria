@@ -21,14 +21,12 @@ const knexConex = knex(knexConfig.development)
 const selectAllProduto = async function() {
     try {
 
-        //Script para retornar todos os filmes 
         let sql =  `select * from tbl_produto order by id desc ` 
         
-        //execulta no banco de Dados o script SQL para retornar os filmes
+        
         let result = await knexConex.raw(sql)
 
-        //Validação para verificar se o retorno no Bd é um Array
-        //Se o scriptSQL de erro, o banco não devolve um array 
+         
         if(Array.isArray(result)){
             return result[0]
         }else{
