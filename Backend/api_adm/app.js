@@ -104,7 +104,7 @@ app.use('/v1/sorvetudos/admin/sabores', cors(), verifyJWT, saborRouter)
 app.use('/v1/sorvetudos/admin/tags', cors(), verifyJWT, tagRouter)
 
 // usuario
-app.use('/v1/sorvetudos/admin/usuarios', cors(), verifyJWT, usuarioRouter)
+app.use('/v1/sorvetudos/admin/usuarios', cors(), usuarioRouter)
 
 // tamanho
 app.use('/v1/sorvetudos/admin/tamanhos', cors(),  verifyJWT, tamanhoRouter)

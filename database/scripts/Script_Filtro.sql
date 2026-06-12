@@ -64,13 +64,4 @@ begin
 end $
 DELIMITER ; 
 
-call filtro(2,null,null,null,null,null,null,null);
-
 CALL filtro(NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-
-SELECT * FROM tbl_produto_categoria WHERE id_produto = 1;
-SELECT * FROM tbl_produto_sabor WHERE id_produto = 1;
-SELECT * FROM tbl_produto_promocao WHERE id_produto = 1;
-SELECT * FROM tbl_produto_lote WHERE id_produto = 1;
-SELECT * FROM tbl_produto_ingrediente WHERE id_produto = 1;
-SELECT * FROM tbl_produto_tag WHERE id_produto = 1;

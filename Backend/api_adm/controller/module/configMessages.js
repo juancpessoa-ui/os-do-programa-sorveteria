@@ -39,6 +39,9 @@ const ERROR_NOT_FOUND = { "status": false, "status_code": 404, "message": "Não 
 
 const ERROR_UNAUTHORIZED = { "status": false, "status_code": 401, "message": "Não foi possivel validar usuario. email ou senha incorretos."}
 
+const ERROR_CONFLICT = { "status": false, "status_code": 409, "message": "Não foi possivel inserir usuario. usuario ou email já cadastrado."}
+
+
 
 module.exports = {
     DEFAULT_MESSAGE,
@@ -52,5 +55,6 @@ module.exports = {
     SUCESS_UPDATE_ITEM,
     SUCESS_DELETE_ITEM,
     SUCESS_CREATED_ITEM_WARNING,
-    ERROR_UNAUTHORIZED
+    ERROR_UNAUTHORIZED,
+    ERROR_CONFLICT
 }

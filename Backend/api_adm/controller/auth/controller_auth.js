@@ -32,7 +32,7 @@ const autenticarUsuario = async (usuario, contentType) => {
         if(validarToken.status) return await montarMensagem(message,message.SUCESS_RESPONSE,dadosUsuario)
 
         // se o token estiver expirado ou for o primeiro login cria um novo e salva no banco
-        if(validarToken.error.TokenExpiredError || dadosUsuario[0].token == null){
+        if(validarToken['error']['expiredAt'] || dadosUsuario[0].token == null){
             let tokenUser = await jwt.createJWT(dadosUsuario[0].id) // gera token JWT
 
             dadosUsuario[0].token = tokenUser

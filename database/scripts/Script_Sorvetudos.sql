@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS tbl_usuario (
     email VARCHAR(255) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
     nivel_de_acesso TINYINT NOT NULL,
-    token TEXT
+    token TEXT DEFAULT NULL
 );
 
 # ------------------- CATEGORIA --------------------

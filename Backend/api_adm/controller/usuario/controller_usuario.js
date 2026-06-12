@@ -8,6 +8,7 @@
 const config_message = require('../module/configMessages.js')
 const usuarioDAO = require('../../model/DAO/usuario/usuario.js')
 const bcrypt = require('../../services/bcrypt.js')
+const authDAO = require('../../model/DAO/auth/auth.js')
 const jwt = require('../../middleware/middlewareJWT.js')
 
 // inserir nova usuario
@@ -16,6 +17,10 @@ const inserirNovoUsuario = async (usuario, contentType) => {
     try {
         let validar = await validarDados(usuario, contentType)
         if(validar) return validar // 400 ou 415
+
+        let resultBuscarUsuario = await authDAO.selectAuth(usuario)
+
+        if(resultBuscarUsuario.length > 0) return message.ERROR_CONFLICT // 409
 
         let hash = await bcrypt.criarHash(usuario.senha)
         if(hash) usuario.senha = hash

@@ -1,4 +1,10 @@
 USE db_sorvetudos_2026;
+
+-- Usuario adm
+INSERT INTO tbl_usuario (nome, email, senha, nivel_de_acesso) VALUES
+('admin', 'admin@gmail.com','$2b$10$XBa9TqJuC15BAjlcU/47ge9csV8VuLAfWKj4Z0FCjI0yJpTuYr.be',1);
+-- senha: 'admin'
+
 -- PRODUTOS
 INSERT INTO tbl_produto (nome, descricao, preco, status, img) VALUES
 ('Chocolate ao Leite', 'Sorvete sabor chocolate ao leite', 12.90, 1, 'chocolate.jpg'),
@@ -49,6 +55,8 @@ INSERT INTO tbl_lote (numero, data_fabricacao, data_validade, quantidade) VALUES
 (1003, '2026-06-03', '2026-12-03', 80),
 (1004, '2026-06-04', '2026-12-04', 150),
 (1005, '2026-06-05', '2026-12-05', 90);
+
+
 
 -- INGREDIENTES
 INSERT INTO tbl_ingrediente (ingrediente) VALUES
