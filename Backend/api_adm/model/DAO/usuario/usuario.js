@@ -22,7 +22,7 @@ const insertUsuario = async (usuario) => {
                        '${usuario.email}',
                        '${usuario.senha}',
                        ${usuario.nivel_de_acesso},
-                       '${usuario.token}'
+                       null
                         )`
 
     try {
@@ -30,26 +30,34 @@ const insertUsuario = async (usuario) => {
 
         if(response) return response[0].insertId 
 
-    } catch (error) {}
+    } catch (error) {console.log(error)}
 
     return false
 }
 
 // update de usuario
 const updateUsuario = async (usuario) => {
+    let token = usuario.token
+    if(token == null || token == undefined || token.trim() == ''){
+        token = null
+    }
+
+    // Atualiza o token apenas quando (usuario.token) for enviado.
+    // Caso contrário, mantém o valor atual do banco.
     let sql = `UPDATE tbl_usuario
                SET  nome = '${usuario.nome}',
                     email = '${usuario.email}',
                     senha = '${usuario.senha}',
                     nivel_de_acesso = ${usuario.nivel_de_acesso}
+                    ${token != null ? `,token = '${token}'` : ''}
                WHERE id = ${usuario.id}`
+    
     try {
         let response = await knexConex.raw(sql)
-
-
+        
         if(response) return response
 
-    } catch (error) {}
+    } catch (error) {console.log(error)}
 
     return false
 }

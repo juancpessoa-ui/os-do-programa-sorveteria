@@ -55,7 +55,7 @@ const verifyJWT = async (req, res, next) => {
     const autenticidadeToken = await jwt.validateJWT(token)
 
     // valida se a requisição podera continuar
-    if(autenticidadeToken) 
+    if(autenticidadeToken.status) 
         next()
     else
         return res.status(mensagem.status_code).json(mensagem).end()
@@ -104,7 +104,7 @@ app.use('/v1/sorvetudos/admin/sabores', cors(), verifyJWT, saborRouter)
 app.use('/v1/sorvetudos/admin/tags', cors(), verifyJWT, tagRouter)
 
 // usuario
-app.use('/v1/sorvetudos/admin/usuarios', cors(), usuarioRouter)
+app.use('/v1/sorvetudos/admin/usuarios', cors(), verifyJWT, usuarioRouter)
 
 // tamanho
 app.use('/v1/sorvetudos/admin/tamanhos', cors(),  verifyJWT, tamanhoRouter)

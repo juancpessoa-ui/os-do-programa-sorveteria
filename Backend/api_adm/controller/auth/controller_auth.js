@@ -9,6 +9,7 @@ const config_message = require('../module/configMessages.js')
 const authDAO = require('../../model/DAO/auth/auth.js')
 const jwt = require('../../middleware/middlewareJWT.js')
 const bcrypt = require('../../services/bcrypt.js')
+const controllerUsuario = require('../usuario/controller_usuario.js')
 
 // autenticar usuário
 const autenticarUsuario = async (usuario, contentType) => {
@@ -19,25 +20,29 @@ const autenticarUsuario = async (usuario, contentType) => {
         const validarUsuario = await validarDados(usuario, contentType)
         if(validarUsuario) return validarUsuario
         
-        const dadosUsuario = await authDAO.selectAuth(usuario)
+        let dadosUsuario = await authDAO.selectAuth(usuario)
 
         if (!dadosUsuario || dadosUsuario.length < 1)
-            return message.ERROR_NOT_FOUND
+            return message.ERROR_UNAUTHORIZED
 
         const validarSenha = await bcrypt.validarSenha(usuario.senha, dadosUsuario[0].senha)
         if(!validarSenha) return message.ERROR_UNAUTHORIZED
 
-        // gera token JWT
-        let tokenUser = await jwt.createJWT(dadosUsuario.id)
-        
-        // adiciona token no json
-        dadosUsuario[0].token = tokenUser
+        let validarToken = await jwt.validateJWT(dadosUsuario[0].token)
+        if(validarToken.status) return await montarMensagem(message,message.SUCESS_RESPONSE,dadosUsuario)
 
-        return await montarMensagem(
-            message,
-            message.SUCESS_RESPONSE,
-            dadosUsuario
-        )
+        // se o token estiver expirado ou for o primeiro login cria um novo e salva no banco
+        if(validarToken.error.TokenExpiredError || dadosUsuario[0].token == null){
+            let tokenUser = await jwt.createJWT(dadosUsuario[0].id) // gera token JWT
+
+            dadosUsuario[0].token = tokenUser
+
+            let dadosUpdateUsuario = await controllerUsuario.atualizarUsuario(dadosUsuario[0],dadosUsuario[0].id,'application/json')
+
+            return await montarMensagem(message,message.SUCESS_RESPONSE,dadosUsuario)
+        }
+       
+        return message.ERROR_UNAUTHORIZED
 
     } catch (error) {
         console.log(error)

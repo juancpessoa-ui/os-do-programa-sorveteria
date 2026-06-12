@@ -23,13 +23,18 @@
     
     // Valida a autenticidade do Token do JWT
     const validateJWT = async (token) => {
-        let status = false
+        let response = {
+            status: true
+        }
         // valida a autenticidade
         jwt.verify(token, SECRET, async (err, decode) => {
-            if (!err) status = true
+            if (err) {
+                response.status = false
+                response.error = err
+            }
         })
-    
-        return status
+        
+        return response
     }
     
     module.exports = {

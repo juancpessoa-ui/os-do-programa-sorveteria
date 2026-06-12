@@ -50,7 +50,9 @@ const atualizarUsuario = async (usuario, id, contentType) => {
 
         if(!result) return message.ERROR_INTERNAL_SERVER_MODEL // 500
 
-        return await montarMensagem(message, message.SUCESS_UPDATE_ITEM, usuario)
+        if(!usuario.token) delete usuario.token
+
+        return await montarMensagem(message, message.SUCESS_UPDATE_ITEM, resultBuscarId.response.usuario)
 
     } catch (error) {console.log(error)}
     return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500
@@ -133,7 +135,7 @@ const validarDados = async (usuario, contentType) => {
         return message.ERROR_BAD_REQUEST // 400
     }
 
-    if(usuario.senha == undefined || usuario.senha == null || usuario.senha == '' || usuario.senha.length > 30 || typeof(usuario.senha) != 'string'){
+    if(usuario.senha == undefined || usuario.senha == null || usuario.senha == '' || usuario.senha.length < 0 || typeof(usuario.senha) != 'string'){
         message.ERROR_BAD_REQUEST.field = '[SENHA] INVÁLIDO'
         return message.ERROR_BAD_REQUEST // 400
     }
