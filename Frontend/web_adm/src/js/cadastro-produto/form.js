@@ -78,11 +78,6 @@ const _submeterProduto = ()  =>{
   formData.append("status",    1)
   formData.append("img",       imagem);
 
-  console.log(tags)
-  console.log(tamanhos)
-  console.log(sabores)
-  console.log(categorias)
-
   formData.append("categoria",   JSON.stringify(categorias.map(id => ({ id }))));
   formData.append("sabor",       JSON.stringify(sabores.map(id => ({ id }))));
   formData.append("ingrediente", JSON.stringify(ingredientes.map(id => ({ id }))));

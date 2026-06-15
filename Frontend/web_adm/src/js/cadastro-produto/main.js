@@ -19,10 +19,8 @@ export const pegarCategorias = async () =>{
   let url = `${BASE_URL}/categorias`
 
   let response = await fetch(url, OPTIONS)
-  console.log(response)
   if(!response.ok) throw new Error('Erro ao pegar categorias')
 
-  console.log(response)
   let data = await response.json()
 
   return data
@@ -109,7 +107,6 @@ export const cadastrarProduto = async (formData) =>{
   let response = await fetch(`${BASE_URL}/produtos`, OPTIONS)
 
   let data = await response.json()
-  console.log(data)
   return data
 }
 
