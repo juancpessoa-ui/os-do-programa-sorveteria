@@ -31,6 +31,8 @@ import { renderizarSabores } from "./renderizar.js"
 import { renderizarTags } from "./renderizar.js"
 import { renderizarTamanhos } from "./renderizar.js"
 
+let token = localStorage.getItem('token')
+
 function obterSelecionados(containerId) {
   const container = document.getElementById(containerId);
   if (!container) return [];
@@ -130,7 +132,8 @@ const _confirmarAdicionarCategoria = async () => {
   const OPTIONS = {
       method: 'POST',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       },
       body: JSON.stringify(categoria)   
   }
@@ -162,7 +165,6 @@ function modalEditarCategoria() {
 const _confirmarEditarCategoria = async (id) => {
   let valor = document.getElementById("modal-input").value.trim();
   if (!valor) return alert("Informe o nome da categoria.");
-  // TODO: PUT /api/categorias/:id  →  body: { categoria: valor }
 
     let categoria = {
     "categoria" : valor
@@ -171,7 +173,8 @@ const _confirmarEditarCategoria = async (id) => {
   const OPTIONS = {
       method: 'PUT',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       },
       body: JSON.stringify(categoria)   
   }
@@ -198,7 +201,8 @@ const _confirmarDeletarCategoria = async (ids) => {
   const OPTIONS = {
       method: 'DELETE',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       }
     }
 
@@ -231,7 +235,8 @@ const _confirmarAdicionarTag = async () => {
   const OPTIONS = {
       method: 'POST',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       },
       body: JSON.stringify(tag)   
   }
@@ -270,7 +275,8 @@ const _confirmarEditarTag = async (id) => {
   const OPTIONS = {
       method: 'PUT',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       },
       body: JSON.stringify(tag)   
   }
@@ -297,7 +303,8 @@ const _confirmarDeletarTag = async (ids) => {
   const OPTIONS = {
       method: 'DELETE',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       }
     }
 
@@ -331,7 +338,8 @@ const _confirmarAdicionarSabor = async () => {
   const OPTIONS = {
       method: 'POST',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       },
       body: JSON.stringify(sabor)   
   }
@@ -370,7 +378,8 @@ const _confirmarEditarSabor= async (id) => {
   const OPTIONS = {
       method: 'PUT',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       },
       body: JSON.stringify(sabor)   
   }
@@ -397,7 +406,8 @@ const _confirmarDeletarSabor = async (ids) => {
   const OPTIONS = {
       method: 'DELETE',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       }
     }
 
@@ -430,7 +440,8 @@ const _confirmarAdicionarTamanho = async () => {
   const OPTIONS = {
       method: 'POST',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       },
       body: JSON.stringify(tamanho)   
   }
@@ -468,7 +479,8 @@ const _confirmarEditarTamanho = async (id) => {
   const OPTIONS = {
       method: 'PUT',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       },
       body: JSON.stringify(tamanho)   
   }
@@ -495,7 +507,8 @@ const _confirmarDeletarTamanho = async (ids) => {
   const OPTIONS = {
       method: 'DELETE',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       }
     }
 
@@ -529,7 +542,8 @@ const _confirmarAdicionarIngrediente = async () => {
   const OPTIONS = {
       method: 'POST',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       },
       body: JSON.stringify(ingrediente)   
   }
@@ -567,7 +581,8 @@ const _confirmarEditarIngrediente = async (id) => {
   const OPTIONS = {
       method: 'PUT',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       },
       body: JSON.stringify(ingrediente)   
   }
@@ -593,7 +608,8 @@ const _confirmarDeletarIngrediente = async (ids) => {
   const OPTIONS = {
       method: 'DELETE',
       headers: {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'x-access-token': token
       }
     }
 

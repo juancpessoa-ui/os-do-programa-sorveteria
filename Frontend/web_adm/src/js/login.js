@@ -15,7 +15,8 @@ const login = async (nome, email, senha, nivel_acesso) => {
     const response = await fetch("http://localhost:8080/v1/sorvetudos/admin/auth/login", OPTIONS);
     const data = await response.json()
 
-    localStorage.setItem('token', data.token)
+    console.log(data)
+    localStorage.setItem('token', data.response.auth[0].token)
 
     return response
 }

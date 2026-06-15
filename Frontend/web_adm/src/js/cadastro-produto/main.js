@@ -5,20 +5,21 @@ export let CATEGORIAS = [];
 export let INGREDIENTES = [];
 export let TAGS = [];
 export let TAMANHOS = [];
+let token = localStorage.getItem('token')
 
 export const pegarCategorias = async () =>{
-  let token = localStorage.getItem('token')
   
 
   const OPTIONS = {
     headers: {
-      'Autorization': `${token}`,
+      'x-access-token': token,
     },
   }
 
   let url = `${BASE_URL}/categorias`
 
   let response = await fetch(url, OPTIONS)
+  console.log(response)
   if(!response.ok) throw new Error('Erro ao pegar categorias')
 
   console.log(response)
@@ -28,48 +29,82 @@ export const pegarCategorias = async () =>{
 }
 
 export const pegarSabores= async () =>{
+  
+
+  const OPTIONS = {
+    headers: {
+      'x-access-token': token,
+    },
+  }
+
   let url = `${BASE_URL}/sabores`
 
-  let response = await fetch(url)
+  let response = await fetch(url, OPTIONS)
   let data = await response.json()
 
   return data
 }
 
 export const pegarTags = async () =>{
+  
+
+  const OPTIONS = {
+    headers: {
+      'x-access-token': token,
+    },
+  }
+
   let url  = `${BASE_URL}/tags`
 
-  let response = await fetch(url)
+  let response = await fetch(url, OPTIONS)
   let data = await response.json()
 
   return data
 }
 
 export const pegarTamanhos = async () =>{
+  
+
+  const OPTIONS = {
+    headers: {
+      'x-access-token': token,
+    },
+  }
+
   let url = `${BASE_URL}/tamanhos`
 
-  let response = await fetch(url)
+  let response = await fetch(url, OPTIONS)
   let data = await response.json()
 
   return data
 } 
 
 export const pegarIngredientes = async () =>{
+  
+
+  const OPTIONS = {
+    headers: {
+      'x-access-token': token,
+    },
+  }
+
   let url = `${BASE_URL}/ingredientes`
 
-  let response = await fetch(url)
+  let response = await fetch(url, OPTIONS)
   let data = await response.json()
 
   return data
 } 
 
 export const cadastrarProduto = async (formData) =>{
-
   const OPTIONS = {
     method: 'POST',
+    headers: {
+      'x-access-token': token,
+    },
     body: formData,
   } 
-  console.log(formData)
+
 
   let response = await fetch(`${BASE_URL}/produtos`, OPTIONS)
 

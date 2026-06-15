@@ -78,19 +78,20 @@ const _submeterProduto = ()  =>{
   formData.append("status",    1)
   formData.append("img",       imagem);
 
-  // Arrays enviados como JSON string (o backend desserializa)
-  formData.append("categoria",   JSON.stringify(categorias));
-  formData.append("sabor",      JSON.stringify(sabores));
-  formData.append("ingrediente", JSON.stringify(ingredientes));
-  formData.append("tag",         JSON.stringify(tags));
-  formData.append("tamanho",     JSON.stringify(tamanhos));
+  console.log(tags)
+  console.log(tamanhos)
+  console.log(sabores)
+  console.log(categorias)
 
-  // Campos reservados para implementação futura
-  formData.append("promocao", JSON.stringify([0]));
-  formData.append("lote",      JSON.stringify([1]));
+  formData.append("categoria",   JSON.stringify(categorias.map(id => ({ id }))));
+  formData.append("sabor",       JSON.stringify(sabores.map(id => ({ id }))));
+  formData.append("ingrediente", JSON.stringify(ingredientes.map(id => ({ id }))));
+  formData.append("tag",         JSON.stringify(tags.map(id => ({ id }))));
+  formData.append("tamanho",     JSON.stringify(tamanhos.map(id => ({ id }))));
+  formData.append("promocao",    JSON.stringify([{ id: 0 }]));
+  formData.append("lote",        JSON.stringify([{ id: 1 }]));
 
   return formData
-  alert("Produto pronto para envio! (simulação — fetch pendente)\nVeja o console para conferir os dados.");
 }
 
 const chamarCadastro = async () => {
