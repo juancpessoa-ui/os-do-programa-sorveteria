@@ -88,7 +88,7 @@ const _submeterProduto = ()  =>{
   formData.append("ingrediente", JSON.stringify(ingredientes.map(id => ({ id }))));
   formData.append("tag",         JSON.stringify(tags.map(id => ({ id }))));
   formData.append("tamanho",     JSON.stringify(tamanhos.map(id => ({ id }))));
-  formData.append("promocao",    JSON.stringify([{ id: 0 }]));
+  formData.append("promocao",    JSON.stringify([{ id: 1 }]));
   formData.append("lote",        JSON.stringify([{ id: 1 }]));
 
   return formData
