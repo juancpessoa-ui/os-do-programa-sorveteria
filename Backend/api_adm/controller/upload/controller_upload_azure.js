@@ -1,8 +1,8 @@
 /*********************************************************************************************************
  * Objetivo: Arquivo responsável pela configuração 
- * Data: 10/06/2026
- * Autor: Julio Augusto
- * Versão: 1.0
+ * Autor: Juan Carlos
+ * data: 11/06/2026
+ * versão: 1.0
  * *******************************************************************************************************/
 
 // Import do arquivo de configuração da Azure
