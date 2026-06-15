@@ -37,9 +37,9 @@ const ERROR_CONTENT_TYPE = { "status": false, "status_code": 415, "message": "N�
 
 const ERROR_NOT_FOUND = { "status": false, "status_code": 404, "message": "Não foi possivel encontrar nenhum registro."}
 
-const ERROR_UNAUTHORIZED = { "status": false, "status_code": 401, "message": "Não foi possivel validar usuario. email ou senha incorretos."}
+const ERROR_UNAUTHORIZED = { "status": false, "status_code": 401, "message": "Não foi possivel processar requisição. usuário não autorizado."}
 
-const ERROR_CONFLICT = { "status": false, "status_code": 409, "message": "Não foi possivel inserir usuario. usuario ou email já cadastrado."}
+const ERROR_CONFLICT = { "status": false, "status_code": 409, "message": "Não foi possivel processar requisição. usuario ou email já cadastrado."}
 
 
 

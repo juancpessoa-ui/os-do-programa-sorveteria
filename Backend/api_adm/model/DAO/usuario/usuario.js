@@ -92,7 +92,8 @@ const selectByIdUsuario = async (id) => {
 // delete de usuario
 const deleteUsuario = async (id) => {
     let sql = `DELETE FROM tbl_usuario
-               WHERE id = ${id}`
+               WHERE id = ${id}
+               AND nivel_de_acesso < 2`
     try {
         let response = await knexConex.raw(sql)
 
