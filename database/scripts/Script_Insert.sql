@@ -2,7 +2,7 @@ USE db_sorvetudos_2026;
 
 -- Usuario adm
 INSERT INTO tbl_usuario (nome, email, senha, nivel_de_acesso) VALUES
-('admin', 'admin@gmail.com','$2b$10$XBa9TqJuC15BAjlcU/47ge9csV8VuLAfWKj4Z0FCjI0yJpTuYr.be',1);
+('admin', 'admin@gmail.com','$2b$10$XBa9TqJuC15BAjlcU/47ge9csV8VuLAfWKj4Z0FCjI0yJpTuYr.be',2);
 -- senha: 'admin'
 
 -- PRODUTOS

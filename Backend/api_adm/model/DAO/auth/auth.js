@@ -15,7 +15,7 @@ const selectAuth = async (usuario) => {
     let sql = `SELECT *
                FROM tbl_usuario
                WHERE email = '${usuario.email}'
-               AND nivel_de_acesso = 1`
+               AND nivel_de_acesso > 0`
 
     let response = await knexConex.raw(sql)
 

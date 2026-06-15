@@ -114,6 +114,9 @@ const excluirUsuario = async (id) => {
         let resultBuscarId = await buscarUsuario(id)
         if(!resultBuscarId.status) return resultBuscarId // 400 e 404
 
+        if(resultBuscarId.response.usuario[0].nivel_de_acesso > 1)
+            return message.ERROR_UNAUTHORIZED
+
         let result = await usuarioDAO.deleteUsuario(id)
 
         if(!result) return message.ERROR_INTERNAL_SERVER_MODEL // 500
