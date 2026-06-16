@@ -43,8 +43,6 @@ const formatarJson = async (dados) => {
         ingrediente : JSON.parse(dados.ingrediente)
     }
 
-    console.log(produto)
-
     return produto
 }
 
@@ -76,7 +74,7 @@ router.put('/:id', bodyParserJSON, upload.single('img'), async (req,res) => {
     let img = req.file
     let contentType = req.headers['content-type']
 
-    let result = await atualizarProduto(dados, id, contentType)
+    let result = await atualizarProduto(dados, id, img, contentType)
     res.status(result.status_code).json(result)
 })
 

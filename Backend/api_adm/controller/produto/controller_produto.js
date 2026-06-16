@@ -107,10 +107,19 @@ const inserirNovoProduto = async (produto, foto) => {
 }
 
 // atualizar produto
-const atualizarProduto = async (produto, id, contentType) => {
+const atualizarProduto = async (produto, id, foto, contentType) => {
     let message = JSON.parse(JSON.stringify(config_message))
 
     try {
+         let urlFoto = await UPLOAD.uploadFiles(foto)
+
+        if(!urlFoto){
+            message.ERROR_BAD_REQUEST.field = '[FOTO] INVÁLIDO'
+            return message.ERROR_BAD_REQUEST // 400
+        }
+
+        produto.img = urlFoto
+
         let validar = await validarDados(produto, contentType)
         if(validar) return validar // 400 ou 415
 
