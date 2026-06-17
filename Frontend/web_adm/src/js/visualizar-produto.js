@@ -1,7 +1,3 @@
-// ============================================================
-//  visualizar-produto.js
-// ============================================================
-
 const BASE_URL = 'http://localhost:8080/v1/sorvetudos/admin';
 let token = localStorage.getItem('token')
 
@@ -23,9 +19,6 @@ async function pegarProduto(id) {
   return data.response.produto;
 }
 
-// ------------------------------------------------------------
-//  Chip de leitura (somente visual, sem interação)
-// ------------------------------------------------------------
 function criarChipLeitura(texto) {
   const span = document.createElement('span');
   span.className   = 'chip-leitura';
@@ -45,11 +38,6 @@ function renderizarChipsLeitura(containerId, itens, chave) {
 
   itens.forEach(item => container.appendChild(criarChipLeitura(item[chave])));
 }
-
-// ------------------------------------------------------------
-//  Preenche a página com os dados do produto
-//  Chaves da API (singular): categoria, sabor, tag, tamanho, ingrediente
-// ------------------------------------------------------------
 function preencherPagina(produtoArray) {
   let produto = produtoArray[0]
   console.log(produto)
@@ -78,9 +66,6 @@ function preencherPagina(produtoArray) {
   renderizarChipsLeitura('ingredientes-lista',produto.ingrediente,'ingrediente');
 }
 
-// ------------------------------------------------------------
-//  Modal de deletar
-// ------------------------------------------------------------
 function abrirModalDeletar(produtoArray) {
   let produto = produtoArray[0]
   const overlay = document.getElementById('modal-overlay');
@@ -118,9 +103,6 @@ async function confirmarDeletar(id) {
   }
 }
 
-// ------------------------------------------------------------
-//  Init
-// ------------------------------------------------------------
 async function init() {
   const id = pegarIdDaUrl();
   if (!id) { window.location.href = 'dashboard_modelo.html'; return; }

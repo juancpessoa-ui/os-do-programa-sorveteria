@@ -87,9 +87,6 @@ function renderizarTabela(lista) {
   lista.forEach(p => tbody.appendChild(criarLinhaProdutos(p)));
 }
 
-// ------------------------------------------------------------
-//  Toggle de status — PUT na API
-// ------------------------------------------------------------
 async function toggleStatus(id, lista) {
   const produto = lista.find(p => p.id === id);
   if (!produto) return;

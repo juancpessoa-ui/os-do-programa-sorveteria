@@ -12,9 +12,6 @@ function pegarIdDaUrl() {
   return new URLSearchParams(window.location.search).get('id');
 }
 
-// ------------------------------------------------------------
-//  Busca da API
-// ------------------------------------------------------------
 async function pegarProduto(id) {
   const res = await fetch(`${BASE_URL}/produtos/${id}`, OPTIONS_GET);
   if (!res.ok) throw new Error('Produto não encontrado',);
@@ -57,9 +54,7 @@ async function pegarSabores() {
   return data.response.sabor;
 }
 
-// ------------------------------------------------------------
-//  Cria chip interativo (checkbox ou radio) com pré-seleção
-// ------------------------------------------------------------
+
 function criarChip(id, label, tipo, grupo, selecionado = false) {
   const chip = document.createElement('label');
   chip.className = 'chip';
@@ -84,9 +79,6 @@ function criarChip(id, label, tipo, grupo, selecionado = false) {
   return chip;
 }
 
-// ------------------------------------------------------------
-//  Renderiza grupo de chips com IDs pré-selecionados
-// ------------------------------------------------------------
 function renderizarChipsEdicao(containerId, itens, chave, idsSelecionados, tipo = 'checkbox', grupo = '') {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -98,9 +90,6 @@ function renderizarChipsEdicao(containerId, itens, chave, idsSelecionados, tipo 
   });
 }
 
-// ------------------------------------------------------------
-//  Preenche campos de texto e imagem com dados do produto
-// ------------------------------------------------------------
 function preencherCampos(produto) {
   document.querySelector('.pagina-titulo').textContent = `Editar ${produto.nome}`;
   document.title = `Sorvetudos — Editar ${produto.nome}`;
@@ -109,7 +98,6 @@ function preencherCampos(produto) {
   document.getElementById('campo-preco').value     = produto.preco     ?? '';
   document.getElementById('campo-descricao').value = produto.descricao ?? '';
 
-  // Imagem atual como fundo do dropzone
   if (produto.img) {
     const dropzone = document.getElementById('dropzone');
     dropzone.style.backgroundImage    = `url('${produto.img}')`;
@@ -119,9 +107,6 @@ function preencherCampos(produto) {
   }
 }
 
-// ------------------------------------------------------------
-//  Upload de imagem — drag & drop + click
-// ------------------------------------------------------------
 function iniciarUpload() {
   const dropzone     = document.getElementById('dropzone');
   const inputArquivo = document.getElementById('input-arquivo');
@@ -160,9 +145,6 @@ function _processarArquivo(arquivo, placeholder) {
   leitor.readAsDataURL(arquivo);
 }
 
-// ------------------------------------------------------------
-//  Coleta IDs marcados em um container de chips
-// ------------------------------------------------------------
 function obterSelecionadosIds(containerId) {
   const container = document.getElementById(containerId);
   if (!container) return [];
@@ -171,19 +153,16 @@ function obterSelecionadosIds(containerId) {
 }
 
 const validarProduto = () => {
-  // --- Campos de texto ---
+
   const nome      = document.getElementById('campo-nome').value.trim();
   const descricao = document.getElementById('campo-descricao').value.trim();
   const preco     = document.getElementById('campo-preco').value.trim();
 
-  // --- Seleções ---
   const categorias  = obterSelecionadosIds("categorias-chips");
   const sabores     = obterSelecionadosIds("sabores-chips");
   const ingredientes = obterSelecionadosIds("ingredientes-chips");
   const tags        = obterSelecionadosIds("tags-chips");
-  const tamanhos    = obterSelecionadosIds("tamanhos-chips"); // radio → máx 1
-
-
+  const tamanhos    = obterSelecionadosIds("tamanhos-chips"); 
 
   const erros = [];
   if (!nome)              erros.push("Nome do produto é obrigatório.");
@@ -221,8 +200,6 @@ async function submeterEdicao(id) {
   const tamanhos     = obterSelecionadosIds('tamanhos-chips');
   const ingredientes = obterSelecionadosIds('ingredientes-chips');
 
-
-  // FormData — Content-Type multipart/form-data definido automaticamente pelo fetch
   const formData = new FormData();
   formData.append('nome',         nome);
   formData.append('descricao',    descricao);
@@ -244,7 +221,6 @@ async function submeterEdicao(id) {
   console.log(formData.get('status'))
 
   try {
-    // PUT /v1/sorvetudos/admin/produtos/{id}
     const res = await fetch(`${BASE_URL}/produtos/${id}`, {
       method: 'PUT',
       headers: {
@@ -262,15 +238,11 @@ async function submeterEdicao(id) {
   }
 }
 
-// ------------------------------------------------------------
-//  Init
-// ------------------------------------------------------------
 async function init() {
   const id = pegarIdDaUrl();
   if (!id) { window.location.href = 'dashboard_modelo.html'; return; }
 
   try {
-    // Busca tudo em paralelo
     const [produto, categorias, sabores, tags, tamanhos, ingredientes] = await Promise.all([
       pegarProduto(id),
       pegarCategorias(),
@@ -283,15 +255,12 @@ async function init() {
     produtoAtual = produto;
     preencherCampos(produto);
 
-
-    // IDs já associados ao produto — usando chaves SINGULARES da API
     const idsCategorias   = (produto.categoria   ?? []).map(c => c.id);
     const idsSabores      = (produto.sabor        ?? []).map(s => s.id);
     const idsTags         = (produto.tag          ?? []).map(t => t.id);
     const idsTamanhos     = (produto.tamanho      ?? []).map(t => t.id);
     const idsIngredientes = (produto.ingrediente  ?? []).map(i => i.id);
 
-    // Renderiza todos os grupos de chips com pré-seleção
     renderizarChipsEdicao('categorias-chips',   categorias,   'categoria',   idsCategorias);
     renderizarChipsEdicao('sabores-chips',      sabores,      'sabor',       idsSabores);
     renderizarChipsEdicao('tags-chips',         tags,         'tag',         idsTags);
