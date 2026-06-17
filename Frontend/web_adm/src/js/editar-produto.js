@@ -1,12 +1,10 @@
-// ============================================================
-//  editar-produto.js
-//  Carrega produto por ID, pré-preenche todos os campos,
-//  e envia PUT com multipart/form-data ao confirmar.
-//  Chaves da API (singular): categoria, sabor, tag, tamanho, ingrediente
-// ============================================================
-
-const BASE_URL = '/v1/sorvetudos/admin';
-
+const BASE_URL = 'http://localhost:8080/v1/sorvetudos/admin';
+let token = localStorage.getItem('token')
+const OPTIONS_GET = {
+  headers: {
+      'x-access-token': token,
+    },
+}
 let produtoAtual = null;
 let imagemNova   = null;
 
@@ -20,37 +18,43 @@ function pegarIdDaUrl() {
 async function pegarProduto(id) {
   const res = await fetch(`${BASE_URL}/produtos/${id}`);
   if (!res.ok) throw new Error('Produto não encontrado');
-  return res.json();
+  let data = await res.json()
+  return data.response.produto;
 }
 
 async function pegarCategorias() {
   const res = await fetch(`${BASE_URL}/categorias`);
   if (!res.ok) throw new Error('Erro ao buscar categorias');
-  return res.json();
+  let data = await res.json()
+  return data.response.categoria;
 }
 
 async function pegarIngredientes() {
   const res = await fetch(`${BASE_URL}/ingredientes`);
   if (!res.ok) throw new Error('Erro ao buscar ingredientes');
-  return res.json();
+  let data = await res.json()
+  return data.response.ingrediente;
 }
 
 async function pegarTags() {
   const res = await fetch(`${BASE_URL}/tags`);
   if (!res.ok) throw new Error('Erro ao buscar tags');
-  return res.json();
+  let data = await res.json()
+  return data.response.tag;
 }
 
 async function pegarTamanhos() {
   const res = await fetch(`${BASE_URL}/tamanhos`);
   if (!res.ok) throw new Error('Erro ao buscar tamanhos');
-  return res.json();
+  let data = await res.json()
+  return data.response.tamanho;
 }
 
 async function pegarSabores() {
   const res = await fetch(`${BASE_URL}/sabores`);
   if (!res.ok) throw new Error('Erro ao buscar sabores');
-  return res.json();
+  let data = await res.json()
+  return data.response.sabor;
 }
 
 // ------------------------------------------------------------
@@ -205,7 +209,10 @@ async function submeterEdicao(id) {
     // PUT /v1/sorvetudos/admin/produtos/{id}
     const res = await fetch(`${BASE_URL}/produtos/${id}`, {
       method: 'PUT',
-      body: formData
+      headers: {
+        'x-access-token': token,
+        },
+      body: formData,
     });
 
     if (!res.ok) throw new Error('Erro ao atualizar produto');

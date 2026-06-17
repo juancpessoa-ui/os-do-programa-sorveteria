@@ -52,6 +52,7 @@ function renderizarChipsLeitura(containerId, itens, chave) {
 // ------------------------------------------------------------
 function preencherPagina(produtoArray) {
   let produto = produtoArray[0]
+  console.log(produto)
   // Título
   document.querySelector('.pagina-titulo').textContent = produto.nome;
   document.title = `Sorvetudos — ${produto.nome}`;

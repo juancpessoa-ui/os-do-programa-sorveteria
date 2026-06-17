@@ -101,8 +101,8 @@ async function toggleStatus(id, lista) {
 
   try {
     let formData = criarFormData(produto, novoStatus)
-    
-
+    console.log(formData.get('img'))
+  
     const OPTIONS = {
       method: 'PUT',
       headers: {
