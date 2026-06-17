@@ -2,16 +2,25 @@
 //  visualizar-produto.js
 // ============================================================
 
-const BASE_URL = '/v1/sorvetudos/admin';
+const BASE_URL = 'http://localhost:8080/v1/sorvetudos/admin';
+let token = localStorage.getItem('token')
 
 function pegarIdDaUrl() {
   return new URLSearchParams(window.location.search).get('id');
 }
 
 async function pegarProduto(id) {
-  const res = await fetch(`${BASE_URL}/produtos/${id}`);
+  const OPTIONS = {
+    headers: {
+      'x-access-token': token,
+    },
+  }
+  const res = await fetch(`${BASE_URL}/produtos/${id}`, OPTIONS);
+  console.log(res)
+  
   if (!res.ok) throw new Error(`Produto ${id} não encontrado`);
-  return res.json();
+  const data = await res.json()
+  return data.response.produto;
 }
 
 // ------------------------------------------------------------
@@ -41,7 +50,8 @@ function renderizarChipsLeitura(containerId, itens, chave) {
 //  Preenche a página com os dados do produto
 //  Chaves da API (singular): categoria, sabor, tag, tamanho, ingrediente
 // ------------------------------------------------------------
-function preencherPagina(produto) {
+function preencherPagina(produtoArray) {
+  let produto = produtoArray[0]
   // Título
   document.querySelector('.pagina-titulo').textContent = produto.nome;
   document.title = `Sorvetudos — ${produto.nome}`;
@@ -70,7 +80,8 @@ function preencherPagina(produto) {
 // ------------------------------------------------------------
 //  Modal de deletar
 // ------------------------------------------------------------
-function abrirModalDeletar(produto) {
+function abrirModalDeletar(produtoArray) {
+  let produto = produtoArray[0]
   const overlay = document.getElementById('modal-overlay');
   document.getElementById('modal-mensagem').textContent =
     `Deseja deletar o produto [${produto.nome}]?`;
@@ -91,7 +102,13 @@ function fecharModal() {
 
 async function confirmarDeletar(id) {
   try {
-    const res = await fetch(`${BASE_URL}/produtos/${id}`, { method: 'DELETE' });
+    const OPTIONS = {
+      method: 'DELETE',
+      headers: {
+          'x-access-token': token
+      }
+    }
+    const res = await fetch(`${BASE_URL}/produtos/${id}`, OPTIONS);
     if (!res.ok) throw new Error('Erro ao deletar produto');
     window.location.href = 'dashboard_modelo.html';
   } catch (err) {
@@ -120,7 +137,6 @@ async function init() {
   } catch (err) {
     console.error(err);
     alert('Não foi possível carregar o produto.');
-    window.location.href = 'dashboard_modelo.html';
   }
 }
 

@@ -479,10 +479,3 @@
 
 .btn-modal-voltar   { background: #4B5563; color: #fff; }
 .btn-modal-voltar:hover { background: #374151; }
-
-/* ---- Responsivo ------------------------------------------ */
-@media (max-width: 680px) {
-  .campos-linha      { grid-template-columns: 1fr; }
-  .produto-acoes     { grid-template-columns: 1fr; }
-  .chips-wrapper--grade { grid-template-columns: repeat(2, 1fr); }
-}
