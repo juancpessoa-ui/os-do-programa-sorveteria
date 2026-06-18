@@ -33,6 +33,15 @@ import { renderizarTamanhos } from "./renderizar.js"
 
 let token = localStorage.getItem('token')
 
+function verificar401(res) {
+  if (!res) return
+  if (res.status == 401) {
+    localStorage.removeItem('token')
+    window.location.href = 'index.html'
+    throw new Error('Não autorizado')
+  }
+}
+
 function obterSelecionados(containerId) {
   const container = document.getElementById(containerId);
   if (!container) return [];
@@ -138,11 +147,17 @@ const _confirmarAdicionarCategoria = async () => {
       body: JSON.stringify(categoria)   
   }
 
-  let response = await fetch(`${BASE_URL}/categorias`, OPTIONS)
-  if(!response) throw new Error ('Erro a criar uma nova categoria')
+  try {
+    let response = await fetch(`${BASE_URL}/categorias`, OPTIONS)
+    verificar401(response)
+    if(!response || !response.ok) throw new Error ('Erro a criar uma nova categoria')
 
-  renderizarCategorias();
-  fecharModal();
+    renderizarCategorias();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro adicionar categoria:', err)
+    alert('Erro ao criar categoria. Tente novamente.')
+  }
 }
 
 function modalEditarCategoria() {
@@ -179,11 +194,17 @@ const _confirmarEditarCategoria = async (id) => {
       body: JSON.stringify(categoria)   
   }
 
-  let response = await fetch(`${BASE_URL}/categorias/${id}`, OPTIONS)
-  if(!response) throw new Error ('Erro a criar uma nova categoria')
+  try {
+    let response = await fetch(`${BASE_URL}/categorias/${id}`, OPTIONS)
+    verificar401(response)
+    if(!response || !response.ok) throw new Error ('Erro ao editar categoria')
 
-  renderizarCategorias();
-  fecharModal();
+    renderizarCategorias();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro editar categoria:', err)
+    alert('Erro ao editar categoria. Tente novamente.')
+  }
 }
 
 function modalDeletarCategoria() {
@@ -206,11 +227,19 @@ const _confirmarDeletarCategoria = async (ids) => {
       }
     }
 
-  await Promise.all(
-    ids.map((id) => fetch(`${BASE_URL}/categorias/${id}`, OPTIONS))
-  );
-  renderizarCategorias();
-  fecharModal();
+  try {
+    const responses = await Promise.all(
+      ids.map((id) => fetch(`${BASE_URL}/categorias/${id}`, OPTIONS))
+    );
+    responses.forEach(verificar401)
+    if (!responses.every(r => r.ok)) throw new Error('Erro ao deletar uma ou mais categorias')
+
+    renderizarCategorias();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro deletar categorias:', err)
+    alert('Erro ao deletar categorias. Tente novamente.')
+  }
 }
 
 //  TAGS
@@ -241,11 +270,17 @@ const _confirmarAdicionarTag = async () => {
       body: JSON.stringify(tag)   
   }
 
-  let response = await fetch(`${BASE_URL}/tags`, OPTIONS)
-  if(!response) throw new Error ('Erro a criar uma nova tag')
+  try {
+    let response = await fetch(`${BASE_URL}/tags`, OPTIONS)
+    verificar401(response)
+    if(!response || !response.ok) throw new Error ('Erro a criar uma nova tag')
 
-  renderizarTags();
-  fecharModal();
+    renderizarTags();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro adicionar tag:', err)
+    alert('Erro ao criar tag. Tente novamente.')
+  }
 }
 
 function modalEditarTag() {
@@ -281,11 +316,17 @@ const _confirmarEditarTag = async (id) => {
       body: JSON.stringify(tag)   
   }
 
-  let response = await fetch(`${BASE_URL}/tags/${id}`, OPTIONS)
-  if(!response) throw new Error ('Erro a criar uma nova tag')
+  try {
+    let response = await fetch(`${BASE_URL}/tags/${id}`, OPTIONS)
+    verificar401(response)
+    if(!response || !response.ok) throw new Error ('Erro ao editar tag')
 
-  renderizarTags();
-  fecharModal();
+    renderizarTags();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro editar tag:', err)
+    alert('Erro ao editar tag. Tente novamente.')
+  }
 }
 
 function modalDeletarTag() {
@@ -308,12 +349,19 @@ const _confirmarDeletarTag = async (ids) => {
       }
     }
 
-  await Promise.all(
-    ids.map((id) => fetch(`${BASE_URL}/tags/${id}`, OPTIONS))
-  );
+  try {
+    const responses = await Promise.all(
+      ids.map((id) => fetch(`${BASE_URL}/tags/${id}`, OPTIONS))
+    );
+    responses.forEach(verificar401)
+    if (!responses.every(r => r.ok)) throw new Error('Erro ao deletar uma ou mais tags')
 
-  renderizarTags();
-  fecharModal();
+    renderizarTags();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro deletar tags:', err)
+    alert('Erro ao deletar tags. Tente novamente.')
+  }
 }
 
 //  SABORES
@@ -344,11 +392,17 @@ const _confirmarAdicionarSabor = async () => {
       body: JSON.stringify(sabor)   
   }
 
-  let response = await fetch(`${BASE_URL}/sabores`, OPTIONS)
-  if(!response) throw new Error ('Erro a criar um novo sabor')
+  try {
+    let response = await fetch(`${BASE_URL}/sabores`, OPTIONS)
+    verificar401(response)
+    if(!response || !response.ok) throw new Error ('Erro a criar um novo sabor')
 
-  renderizarSabores();
-  fecharModal();
+    renderizarSabores();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro adicionar sabor:', err)
+    alert('Erro ao criar sabor. Tente novamente.')
+  }
 }
 
 function modalEditarSabor() {
@@ -384,11 +438,17 @@ const _confirmarEditarSabor= async (id) => {
       body: JSON.stringify(sabor)   
   }
 
-  let response = await fetch(`${BASE_URL}/sabores/${id}`, OPTIONS)
-  if(!response) throw new Error ('Erro a criar uma nova sabor')
+  try {
+    let response = await fetch(`${BASE_URL}/sabores/${id}`, OPTIONS)
+    verificar401(response)
+    if(!response || !response.ok) throw new Error ('Erro ao editar sabor')
 
-  renderizarSabores();
-  fecharModal();
+    renderizarSabores();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro editar sabor:', err)
+    alert('Erro ao editar sabor. Tente novamente.')
+  }
 }
 
 function modalDeletarSabor() {
@@ -411,11 +471,18 @@ const _confirmarDeletarSabor = async (ids) => {
       }
     }
 
-  await Promise.all(
-    ids.map((id) => fetch(`${BASE_URL}/sabores/${id}`, OPTIONS))
-  );
-  renderizarSabores();
-  fecharModal();
+  try {
+    const responses = await Promise.all(
+      ids.map((id) => fetch(`${BASE_URL}/sabores/${id}`, OPTIONS))
+    );
+    responses.forEach(verificar401)
+    if (!responses.every(r => r.ok)) throw new Error('Erro ao deletar um ou mais sabores')
+    renderizarSabores();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro deletar sabores:', err)
+    alert('Erro ao deletar sabores. Tente novamente.')
+  }
 }
 
 //  TAMANHOS
@@ -446,10 +513,16 @@ const _confirmarAdicionarTamanho = async () => {
       body: JSON.stringify(tamanho)   
   }
 
-  let response = await fetch(`${BASE_URL}/tamanhos`, OPTIONS)
-  if(!response) throw new Error ('Erro a criar um novo tamanho')
-  renderizarTamanhos();
-  fecharModal();
+  try {
+    let response = await fetch(`${BASE_URL}/tamanhos`, OPTIONS)
+    verificar401(response)
+    if(!response || !response.ok) throw new Error ('Erro a criar um novo tamanho')
+    renderizarTamanhos();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro adicionar tamanho:', err)
+    alert('Erro ao criar tamanho. Tente novamente.')
+  }
 }
 
 function modalEditarTamanho() {
@@ -485,11 +558,17 @@ const _confirmarEditarTamanho = async (id) => {
       body: JSON.stringify(tamanho)   
   }
 
-  let response = await fetch(`${BASE_URL}/tamanhos/${id}`, OPTIONS)
-  if(!response) throw new Error ('Erro a criar uma nova tamanho')
+  try {
+    let response = await fetch(`${BASE_URL}/tamanhos/${id}`, OPTIONS)
+    verificar401(response)
+    if(!response || !response.ok) throw new Error ('Erro ao editar tamanho')
 
-  renderizarTamanhos();
-  fecharModal();
+    renderizarTamanhos();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro editar tamanho:', err)
+    alert('Erro ao editar tamanho. Tente novamente.')
+  }
 }
 
 function modalDeletarTamanho() {
@@ -512,12 +591,19 @@ const _confirmarDeletarTamanho = async (ids) => {
       }
     }
 
-  await Promise.all(
-    ids.map((id) => fetch(`${BASE_URL}/tamanhos/${id}`, OPTIONS))
-  );
+  try {
+    const responses = await Promise.all(
+      ids.map((id) => fetch(`${BASE_URL}/tamanhos/${id}`, OPTIONS))
+    );
+    responses.forEach(verificar401)
+    if (!responses.every(r => r.ok)) throw new Error('Erro ao deletar um ou mais tamanhos')
 
-  renderizarTamanhos();
-  fecharModal();
+    renderizarTamanhos();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro deletar tamanhos:', err)
+    alert('Erro ao deletar tamanhos. Tente novamente.')
+  }
 }
 
 //  INGREDIENTES
@@ -548,10 +634,16 @@ const _confirmarAdicionarIngrediente = async () => {
       body: JSON.stringify(ingrediente)   
   }
 
-  let response = await fetch(`${BASE_URL}/ingredientes`, OPTIONS)
-  if(!response) throw new Error ('Erro a criar um novo ingrediente')
-  renderizarIngredientes();
-  fecharModal();
+  try {
+    let response = await fetch(`${BASE_URL}/ingredientes`, OPTIONS)
+    verificar401(response)
+    if(!response || !response.ok) throw new Error ('Erro a criar um novo ingrediente')
+    renderizarIngredientes();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro adicionar ingrediente:', err)
+    alert('Erro ao criar ingrediente. Tente novamente.')
+  }
 }
 
 function modalEditarIngrediente() {
@@ -587,10 +679,16 @@ const _confirmarEditarIngrediente = async (id) => {
       body: JSON.stringify(ingrediente)   
   }
 
-  let response = await fetch(`${BASE_URL}/ingredientes/${id}`, OPTIONS)
-  if(!response) throw new Error ('Erro a criar uma nova ingrediente')
-  renderizarIngredientes();
-  fecharModal();
+  try {
+    let response = await fetch(`${BASE_URL}/ingredientes/${id}`, OPTIONS)
+    verificar401(response)
+    if(!response || !response.ok) throw new Error ('Erro ao editar ingrediente')
+    renderizarIngredientes();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro editar ingrediente:', err)
+    alert('Erro ao editar ingrediente. Tente novamente.')
+  }
 }
 
 function modalDeletarIngrediente() {
@@ -613,12 +711,19 @@ const _confirmarDeletarIngrediente = async (ids) => {
       }
     }
 
-  await Promise.all(
-    ids.map((id) => fetch(`${BASE_URL}/ingredientes/${id}`, OPTIONS))
-  );
+  try {
+    const responses = await Promise.all(
+      ids.map((id) => fetch(`${BASE_URL}/ingredientes/${id}`, OPTIONS))
+    );
+    responses.forEach(verificar401)
+    if (!responses.every(r => r.ok)) throw new Error('Erro ao deletar um ou mais ingredientes')
 
-  renderizarIngredientes();
-  fecharModal();
+    renderizarIngredientes();
+    fecharModal();
+  } catch (err) {
+    console.error('Erro deletar ingredientes:', err)
+    alert('Erro ao deletar ingredientes. Tente novamente.')
+  }
 }
 
 // EVENTOS

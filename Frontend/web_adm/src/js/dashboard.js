@@ -254,18 +254,23 @@ async function pegarCategorias() {
       'x-access-token': token
     }
   }
+  try {
+    const res = await fetch(`${BASE_URL}/categorias`, OPTIONS)
 
-  const res = await fetch(`${BASE_URL}/categorias`, OPTIONS)
-  
-  verificar401(res)
-  
-  let data = await res.json()
+    verificar401(res)
 
-  if (!res.ok) {
-    throw new Error('Erro ao buscar categorias')
+    let data = await res.json()
+
+    if (!res.ok) {
+      throw new Error('Erro ao buscar categorias')
+    }
+
+    return data.response.categoria
+  } catch (err) {
+    console.error('Erro ao buscar categorias:', err)
+    alert('[ERRO] ao carregar Categorias.')
+    throw err
   }
-
-  return data.response.categoria
 }
 
 async function pegarIngredientes() {
@@ -274,18 +279,23 @@ async function pegarIngredientes() {
       'x-access-token': token
     }
   }
+  try {
+    const res = await fetch(`${BASE_URL}/ingredientes`, OPTIONS)
 
-  const res = await fetch(`${BASE_URL}/ingredientes`, OPTIONS)
-  
-  verificar401(res)
-  
-  let data = await res.json()
+    verificar401(res)
 
-  if (!res.ok) {
-    throw new Error('Erro ao buscar ingredientes')
+    let data = await res.json()
+
+    if (!res.ok) {
+      throw new Error('Erro ao buscar ingredientes')
+    }
+
+    return data.response.ingrediente
+  } catch (err) {
+    console.error('Erro ao buscar ingredientes:', err)
+    alert('[ERRO] ao carregar Ingredientes.')
+    throw err
   }
-
-  return data.response.ingrediente
 }
 
 function bindBusca(lista) {

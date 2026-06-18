@@ -1,6 +1,15 @@
 const BASE_URL = 'https://backend-adm-sorvetudos.onrender.com/v1/sorvetudos/admin';
 let token = localStorage.getItem('token')
 
+function verificar401(res) {
+  if (!res) return
+  if (res.status == 401) {
+    localStorage.removeItem('token')
+    window.location.href = 'index.html'
+    throw new Error('Não autorizado')
+  }
+}
+
 function pegarIdDaUrl() {
   return new URLSearchParams(window.location.search).get('id');
 }
@@ -12,6 +21,7 @@ async function pegarProduto(id) {
     },
   }
   const res = await fetch(`${BASE_URL}/produtos/${id}`, OPTIONS);
+  verificar401(res)
   console.log(res)
   
   if (!res.ok) throw new Error(`Produto ${id} não encontrado`);
@@ -96,6 +106,7 @@ async function confirmarDeletar(id) {
       }
     }
     const res = await fetch(`${BASE_URL}/produtos/${id}`, OPTIONS);
+    verificar401(res)
     if (!res.ok) throw new Error('Erro ao deletar produto');
     window.location.href = 'dashboard.html';
   } catch (err) {

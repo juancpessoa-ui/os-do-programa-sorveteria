@@ -42,14 +42,19 @@ const login = async (nome, email, senha) => {
         body: JSON.stringify({ nome, email, senha })
     }
 
-    const response = await fetch(
-        'https://backend-adm-sorvetudos.onrender.com/v1/sorvetudos/admin/auth/login',
-        OPTIONS
-    )
+    try {
+        const response = await fetch(
+            'https://backend-adm-sorvetudos.onrender.com/v1/sorvetudos/admin/auth/login',
+            OPTIONS
+        )
 
-    const data = await response.json()
+        const data = await response.json()
 
-    return { response, data }
+        return { response, data }
+    } catch (err) {
+        console.error('Erro na requisição de login:', err)
+        throw err
+    }
 }
 
 const fazerLogin = async () => {

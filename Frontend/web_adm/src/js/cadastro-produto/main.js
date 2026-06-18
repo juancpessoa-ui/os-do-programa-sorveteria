@@ -7,6 +7,15 @@ export let TAGS = [];
 export let TAMANHOS = [];
 let token = localStorage.getItem('token')
 
+function verificar401(res) {
+  if (!res) return
+  if (res.status == 401) {
+    localStorage.removeItem('token')
+    window.location.href = 'index.html'
+    throw new Error('Não autorizado')
+  }
+}
+
 export const pegarCategorias = async () =>{
   
 
@@ -18,13 +27,19 @@ export const pegarCategorias = async () =>{
 
   let url = `${BASE_URL}/categorias`
 
-  let response = await fetch(url, OPTIONS)
-  if(!response.ok) throw new Error('Erro ao pegar categorias')
+  try {
+    let response = await fetch(url, OPTIONS)
+    verificar401(response)
+    if(!response.ok) throw new Error('Erro ao pegar categorias')
 
-  let data = await response.json()
-  console.log(data)
+    let data = await response.json()
+    console.log(data)
 
-  return data
+    return data
+  } catch (err) {
+    console.error('Erro ao buscar categorias:', err)
+    throw err
+  }
 }
 
 export const pegarSabores= async () =>{
@@ -36,10 +51,16 @@ export const pegarSabores= async () =>{
 
   let url = `${BASE_URL}/sabores`
 
-  let response = await fetch(url, OPTIONS)
-  let data = await response.json()
+  try {
+    let response = await fetch(url, OPTIONS)
+    verificar401(response)
+    let data = await response.json()
 
-  return data
+    return data
+  } catch (err) {
+    console.error('Erro ao buscar sabores:', err)
+    throw err
+  }
 }
 
 export const pegarTags = async () =>{
@@ -53,10 +74,16 @@ export const pegarTags = async () =>{
 
   let url  = `${BASE_URL}/tags`
 
-  let response = await fetch(url, OPTIONS)
-  let data = await response.json()
+  try {
+    let response = await fetch(url, OPTIONS)
+    verificar401(response)
+    let data = await response.json()
 
-  return data
+    return data
+  } catch (err) {
+    console.error('Erro ao buscar tags:', err)
+    throw err
+  }
 }
 
 export const pegarTamanhos = async () =>{
@@ -70,10 +97,16 @@ export const pegarTamanhos = async () =>{
 
   let url = `${BASE_URL}/tamanhos`
 
-  let response = await fetch(url, OPTIONS)
-  let data = await response.json()
+  try {
+    let response = await fetch(url, OPTIONS)
+    verificar401(response)
+    let data = await response.json()
 
-  return data
+    return data
+  } catch (err) {
+    console.error('Erro ao buscar tamanhos:', err)
+    throw err
+  }
 } 
 
 export const pegarIngredientes = async () =>{
@@ -87,10 +120,16 @@ export const pegarIngredientes = async () =>{
 
   let url = `${BASE_URL}/ingredientes`
 
-  let response = await fetch(url, OPTIONS)
-  let data = await response.json()
+  try {
+    let response = await fetch(url, OPTIONS)
+    verificar401(response)
+    let data = await response.json()
 
-  return data
+    return data
+  } catch (err) {
+    console.error('Erro ao buscar ingredientes:', err)
+    throw err
+  }
 } 
 
 export const cadastrarProduto = async (formData) =>{
@@ -103,10 +142,16 @@ export const cadastrarProduto = async (formData) =>{
   } 
 
 
-  let response = await fetch(`${BASE_URL}/produtos`, OPTIONS)
+  try {
+    let response = await fetch(`${BASE_URL}/produtos`, OPTIONS)
+    verificar401(response)
 
-  let data = await response.json()
-  return data
+    let data = await response.json()
+    return data
+  } catch (err) {
+    console.error('Erro ao cadastrar produto:', err)
+    throw err
+  }
 }
 
 export const obterAtributos = async () =>{

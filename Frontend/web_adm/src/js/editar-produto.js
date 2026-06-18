@@ -1,57 +1,118 @@
 const BASE_URL = 'https://backend-adm-sorvetudos.onrender.com/v1/sorvetudos/admin';
+
 let token = localStorage.getItem('token')
+
 const OPTIONS_GET = {
   headers: {
       'x-access-token': token,
     },
 }
+
+function verificar401(res) {
+  if (!res) return
+  if (res.status == 401) {
+    localStorage.removeItem('token')
+    window.location.href = 'index.html'
+    throw new Error('Não autorizado')
+  }
+}
 let produtoAtual = null;
 let imagemNova   = null;
+
+const btnConfirmar = document.getElementById("btn-confirmar");
+
+function iniciarLoadingBotao() {
+  btnConfirmar.disabled = true;
+  btnConfirmar.classList.add("btn-loading");
+  btnConfirmar.textContent = "Salvando...";
+}
+
+function finalizarLoadingBotao() {
+  btnConfirmar.disabled = false;
+  btnConfirmar.classList.remove("btn-loading");
+  btnConfirmar.textContent = "Confirmar Edição";
+}
 
 function pegarIdDaUrl() {
   return new URLSearchParams(window.location.search).get('id');
 }
 
 async function pegarProduto(id) {
-  const res = await fetch(`${BASE_URL}/produtos/${id}`, OPTIONS_GET);
-  if (!res.ok) throw new Error('Produto não encontrado',);
-  let data = await res.json()
-  return data.response.produto[0];
+  try {
+    const res = await fetch(`${BASE_URL}/produtos/${id}`, OPTIONS_GET);
+    verificar401(res)
+    if (!res.ok) throw new Error('Produto não encontrado');
+    let data = await res.json()
+    return data.response.produto[0];
+  } catch (err) {
+    console.error('Erro ao buscar produto:', err);
+    throw err
+  }
 }
 
 async function pegarCategorias() {
-  const res = await fetch(`${BASE_URL}/categorias`, OPTIONS_GET);
-  if (!res.ok) throw new Error('Erro ao buscar categorias');
-  let data = await res.json()
-  return data.response.categoria;
+  try {
+    const res = await fetch(`${BASE_URL}/categorias`, OPTIONS_GET);
+    verificar401(res)
+    if (!res.ok) throw new Error('Erro ao buscar categorias');
+    let data = await res.json()
+    return data.response.categoria;
+  } catch (err) {
+    console.error('Erro ao buscar categorias:', err);
+    throw err
+  }
 }
 
 async function pegarIngredientes() {
-  const res = await fetch(`${BASE_URL}/ingredientes`, OPTIONS_GET);
-  if (!res.ok) throw new Error('Erro ao buscar ingredientes');
-  let data = await res.json()
-  return data.response.ingrediente;
+  try {
+    const res = await fetch(`${BASE_URL}/ingredientes`, OPTIONS_GET);
+    verificar401(res)
+    if (!res.ok) throw new Error('Erro ao buscar ingredientes');
+    let data = await res.json()
+    return data.response.ingrediente;
+  } catch (err) {
+    console.error('Erro ao buscar ingredientes:', err);
+    throw err
+  }
 }
 
 async function pegarTags() {
-  const res = await fetch(`${BASE_URL}/tags`, OPTIONS_GET);
-  if (!res.ok) throw new Error('Erro ao buscar tags');
-  let data = await res.json()
-  return data.response.tag;
+  try {
+    const res = await fetch(`${BASE_URL}/tags`, OPTIONS_GET);
+    verificar401(res)
+    if (!res.ok) throw new Error('Erro ao buscar tags');
+    let data = await res.json()
+    return data.response.tag;
+  } catch (err) {
+    console.error('Erro ao buscar tags:', err);
+    throw err
+  }
 }
 
 async function pegarTamanhos() {
-  const res = await fetch(`${BASE_URL}/tamanhos`, OPTIONS_GET);
-  if (!res.ok) throw new Error('Erro ao buscar tamanhos');
-  let data = await res.json()
-  return data.response.tamanho;
+  try {
+    const res = await fetch(`${BASE_URL}/tamanhos`, OPTIONS_GET);
+    verificar401(res)
+    if (!res.ok) throw new Error('Erro ao buscar tamanhos');
+    let data = await res.json()
+    return data.response.tamanho;
+  } catch (err) {
+    console.error('Erro ao buscar tamanhos:', err);
+    throw err
+  }
 }
 
 async function pegarSabores() {
-  const res = await fetch(`${BASE_URL}/sabores`, OPTIONS_GET);
-  if (!res.ok) throw new Error('Erro ao buscar sabores');
-  let data = await res.json()
-  return data.response.sabor;
+  try {
+    const res = await fetch(`${BASE_URL}/sabores`, OPTIONS_GET);
+    verificar401(res)
+    if (!res.ok) throw new Error('Erro ao buscar sabores');
+    let data = await res.json()
+    return data.response.sabor;
+  } catch (err) {
+    console.error('Erro ao buscar sabores:', err);
+    throw err
+  }
 }
 
 
@@ -196,36 +257,39 @@ const validarProduto = () => {
 
 
 async function submeterEdicao(id) {
-  let validacao = validarProduto()
-  if(!validacao) return;
+  iniciarLoadingBotao()
 
-  const nome      = document.getElementById('campo-nome').value.trim();
-  const descricao = document.getElementById('campo-descricao').value.trim();
-  const preco     = document.getElementById('campo-preco').value.trim();
+  try {
+    let validacao = validarProduto()
+    if(!validacao) return;
 
-  if (!nome || !preco) {
-    alert('Nome e Preço são obrigatórios.');
-    return;
-  }
+    const nome      = document.getElementById('campo-nome').value.trim();
+    const descricao = document.getElementById('campo-descricao').value.trim();
+    const preco     = document.getElementById('campo-preco').value.trim();
 
-  const categorias   = obterSelecionadosIds('categorias-chips');
-  const sabores      = obterSelecionadosIds('sabores-chips');
-  const tags         = obterSelecionadosIds('tags-chips');
-  const tamanhos     = obterSelecionadosIds('tamanhos-chips');
-  const ingredientes = obterSelecionadosIds('ingredientes-chips');
+    if (!nome || !preco) {
+      alert('Nome e Preço são obrigatórios.');
+      return;
+    }
 
-  const formData = new FormData();
-  formData.append('nome',         nome);
-  formData.append('descricao',    descricao);
-  formData.append('preco',        Number(preco));
-  formData.append('status',       Number(produtoAtual.status));
-  formData.append('categoria',    JSON.stringify(categorias.map(id => ({id}))));
-  formData.append('sabor',       JSON.stringify(sabores.map(id => ({id}))));
-  formData.append('tag',          JSON.stringify(tags.map(id => ({id}))));
-  formData.append('tamanho',      JSON.stringify(tamanhos.map(id => ({id}))));
-  formData.append('ingrediente',  JSON.stringify(ingredientes.map(id => ({id}))));
-  formData.append('promocao',     JSON.stringify([{ id: 1 }]));
-  formData.append('lote',         JSON.stringify([{ id: 1 }]));
+    const categorias   = obterSelecionadosIds('categorias-chips');
+    const sabores      = obterSelecionadosIds('sabores-chips');
+    const tags         = obterSelecionadosIds('tags-chips');
+    const tamanhos     = obterSelecionadosIds('tamanhos-chips');
+    const ingredientes = obterSelecionadosIds('ingredientes-chips');
+
+    const formData = new FormData();
+    formData.append('nome',         nome);
+    formData.append('descricao',    descricao);
+    formData.append('preco',        Number(preco));
+    formData.append('status',       Number(produtoAtual.status));
+    formData.append('categoria',    JSON.stringify(categorias.map(id => ({id}))));
+    formData.append('sabor',       JSON.stringify(sabores.map(id => ({id}))));
+    formData.append('tag',          JSON.stringify(tags.map(id => ({id}))));
+    formData.append('tamanho',      JSON.stringify(tamanhos.map(id => ({id}))));
+    formData.append('ingrediente',  JSON.stringify(ingredientes.map(id => ({id}))));
+    formData.append('promocao',     JSON.stringify([{ id: 1 }]));
+    formData.append('lote',         JSON.stringify([{ id: 1 }]));
 
   if (imagemNova) {
     formData.append('img', imagemNova);
@@ -234,7 +298,6 @@ async function submeterEdicao(id) {
   }
   console.log(formData.get('status'))
 
-  try {
     const res = await fetch(`${BASE_URL}/produtos/${id}`, {
       method: 'PUT',
       headers: {
@@ -243,12 +306,17 @@ async function submeterEdicao(id) {
       body: formData,
     });
 
+    verificar401(res)
+
     if (!res.ok) throw new Error('Erro ao atualizar produto');
 
     window.location.href = `visualizar-produto.html?id=${id}`;
   } catch (err) {
     console.error(err);
     alert('Erro ao salvar alterações. Tente novamente.');
+  } finally {
+    // Garantir que o loading seja removido em caso de erro.
+    finalizarLoadingBotao()
   }
 }
 
