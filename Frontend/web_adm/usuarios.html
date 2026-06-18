@@ -15,13 +15,114 @@
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="./src/css/skeleton-loading.css">
 
+    <style>
+      /* ── OVERLAY ─────────────────────────────────────── */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 100;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-overlay.aberto {
+        display: flex;
+      }
+
+      /* ── CAIXA DO MODAL ──────────────────────────────── */
+      .modal-caixa {
+        background: #fff;
+        border-radius: 10px;
+        padding: 28px 32px 24px;
+        width: 100%;
+        max-width: 420px;
+        position: relative;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      }
+
+      .modal-fechar {
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        background: none;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        color: #555;
+        line-height: 1;
+        padding: 2px 6px;
+      }
+      .modal-fechar:hover { color: #111; }
+
+      .modal-titulo {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 20px;
+        color: #111;
+      }
+
+      /* ── CAMPOS ──────────────────────────────────────── */
+      .modal-campo {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 14px;
+      }
+      .modal-campo label {
+        font-size: 12px;
+        color: #555;
+        font-weight: 500;
+      }
+      .modal-campo input {
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 8px 10px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color .15s;
+        font-family: inherit;
+      }
+      .modal-campo input:focus {
+        border-color: #7c3aed;
+      }
+
+      /* ── RODAPÉ ──────────────────────────────────────── */
+      .modal-rodape {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .btn-modal {
+        padding: 9px 20px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+        transition: opacity .15s;
+      }
+      .btn-modal:hover { opacity: .85; }
+
+      .btn-modal-confirmar { background: #c0392b; color: #fff; }
+      .btn-modal-inserir   { background: #c0392b; color: #fff; }
+      .btn-modal-voltar    { background: #444;    color: #fff; }
+
+      /* ── MENSAGEM (modal remover) ─────────────────────── */
+      .modal-mensagem {
+        font-size: 14px;
+        color: #333;
+        margin: 0 0 4px;
+      }
+    </style>
+
     <!--JAVASCRIPT-->
     <script src="src/js/usuarios/main.js" defer type="module"></script>
     <script src="src/js/aside.js" defer></script>
 </head>
 <body>
 
-  <!--O ASIDE VEM AQUI-->
   <aside class="aside">
     <div class="sidebar-titulo">
       <img class="logo-sorvetudos" src="./src/img/Sorvetudos.png" alt="">
@@ -50,64 +151,232 @@
       <h1 class="page-title">Usuários</h1>
     </header>
 
-    <!-- Tabela de Usuarios -->
     <section class="users-section">
 
-        <button class="btn-insert">+ Inserir novo Usuário</button>
+      <!-- Botão que abre o modal de inserir -->
+      <button class="btn-insert" id="btn-abrir-inserir">+ Inserir novo Usuário</button>
 
-        <div class="table-wrapper">
+      <div class="table-wrapper">
+        <table class="users-table" id="users-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Nivel de Acesso</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody">
+            <tr>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row skeleton-btn"></div></td>
+            </tr>
+            <tr>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row skeleton-btn"></div></td>
+            </tr>
+            <tr>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row skeleton-btn"></div></td>
+            </tr>
+            <tr>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row"></div></td>
+              <td><div class="skeleton skeleton-row skeleton-btn"></div></td>
+            </tr>
+          </tbody>
+        </table>
 
-            <table class="users-table" id="users-table">
-                <thead>
-                    <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Nivel de Acesso</th>
-                    <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody id="users-tbody">
-
-                    <tr>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row skeleton-btn"></div></td>
-                    </tr>
-
-                    <tr>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row skeleton-btn"></div></td>
-                    </tr>
-
-                    <tr>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row skeleton-btn"></div></td>
-                    </tr>
-
-                    <tr>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row"></div></td>
-                        <td><div class="skeleton skeleton-row skeleton-btn"></div></td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-            <div class="empty-state" id="empty-state" hidden>
-                <p>Nenhum Usuário encontrado.</p>
-            </div>
-
+        <div class="empty-state" id="empty-state" hidden>
+          <p>Nenhum Usuário encontrado.</p>
         </div>
+      </div>
 
     </section>
-
   </main>
+
+  <!-- ══════════════════════════════════════════
+       MODAL — INSERIR NOVO USUÁRIO
+  ══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-inserir">
+    <div class="modal-caixa">
+      <button class="modal-fechar" id="fechar-inserir" aria-label="Fechar">✕</button>
+      <h2 class="modal-titulo">Inserir Novo Usuário</h2>
+
+      <div class="modal-campo">
+        <label for="inserir-nome">Nome</label>
+        <input type="text" id="inserir-nome" placeholder="Ex: admin2" />
+      </div>
+      <div class="modal-campo">
+        <label for="inserir-email">Email</label>
+        <input type="email" id="inserir-email" placeholder="Ex: admin@gmail.com" />
+      </div>
+      <div class="modal-campo">
+        <label for="inserir-senha">Senha</label>
+        <input type="password" id="inserir-senha" placeholder="••••••••••••" />
+      </div>
+      <div class="modal-campo">
+        <label for="inserir-nivel">Nível de Acesso</label>
+        <input type="number" id="inserir-nivel" placeholder="Ex: 1" min="1" />
+      </div>
+
+      <div class="modal-rodape">
+        <button class="btn-modal btn-modal-inserir" id="btn-confirmar-inserir">Inserir Usuário</button>
+        <button class="btn-modal btn-modal-voltar"  id="btn-cancelar-inserir">voltar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       MODAL — EDITAR USUÁRIO
+  ══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-editar">
+    <div class="modal-caixa">
+      <button class="modal-fechar" id="fechar-editar" aria-label="Fechar">✕</button>
+      <h2 class="modal-titulo" id="editar-titulo">Editar usuário</h2>
+
+      <div class="modal-campo">
+        <label for="editar-nome">Nome</label>
+        <input type="text" id="editar-nome" />
+      </div>
+      <div class="modal-campo">
+        <label for="editar-email">Email</label>
+        <input type="email" id="editar-email" placeholder="Ex: admin@gmail.com" />
+      </div>
+      <div class="modal-campo">
+        <label for="editar-senha">Senha</label>
+        <input type="password" id="editar-senha" placeholder="••••••••••••" />
+      </div>
+      <div class="modal-campo">
+        <label for="editar-nivel">Nível de Acesso</label>
+        <input type="number" id="editar-nivel" min="1" />
+      </div>
+
+      <div class="modal-rodape">
+        <button class="btn-modal btn-modal-confirmar" id="btn-confirmar-editar">Confirmar Alteração</button>
+        <button class="btn-modal btn-modal-voltar"    id="btn-cancelar-editar">voltar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       MODAL — REMOVER USUÁRIO
+  ══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-remover">
+    <div class="modal-caixa">
+      <button class="modal-fechar" id="fechar-remover" aria-label="Fechar">✕</button>
+      <h2 class="modal-titulo">Remover Usuário</h2>
+      <p class="modal-mensagem" id="remover-mensagem">Deseja remover o usuário?</p>
+
+      <div class="modal-rodape">
+        <button class="btn-modal btn-modal-confirmar" id="btn-confirmar-remover">remover</button>
+        <button class="btn-modal btn-modal-voltar"    id="btn-cancelar-remover">voltar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCRIPT DOS MODAIS
+  ══════════════════════════════════════════ -->
+  <script>
+    // ── Utilitários ──────────────────────────────────────
+    function abrirModal(id) {
+      document.getElementById(id).classList.add('aberto');
+    }
+    function fecharModal(id) {
+      document.getElementById(id).classList.remove('aberto');
+    }
+
+    // Fecha ao clicar no overlay (fora da caixa)
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) fecharModal(overlay.id);
+      });
+    });
+
+    // ── Modal: Inserir ───────────────────────────────────
+    document.getElementById('btn-abrir-inserir').addEventListener('click', () => {
+      // Limpa os campos antes de abrir
+      ['inserir-nome','inserir-email','inserir-senha','inserir-nivel']
+        .forEach(id => document.getElementById(id).value = '');
+      abrirModal('modal-inserir');
+    });
+
+    document.getElementById('fechar-inserir').addEventListener('click',    () => fecharModal('modal-inserir'));
+    document.getElementById('btn-cancelar-inserir').addEventListener('click', () => fecharModal('modal-inserir'));
+
+    document.getElementById('btn-confirmar-inserir').addEventListener('click', () => {
+      const nome  = document.getElementById('inserir-nome').value.trim();
+      const email = document.getElementById('inserir-email').value.trim();
+      const senha = document.getElementById('inserir-senha').value.trim();
+      const nivel = document.getElementById('inserir-nivel').value.trim();
+
+      if (!nome || !email || !senha || !nivel) {
+        alert('Preencha todos os campos.');
+        return;
+      }
+
+      // TODO: chamar API para inserir usuário
+      console.log('Inserir usuário:', { nome, email, senha, nivel });
+      fecharModal('modal-inserir');
+    });
+
+    // ── Modal: Editar ────────────────────────────────────
+    // Expõe função global para o main.js chamar ao montar a tabela:
+    // abrirModalEditar({ nome, email, nivel })
+    window.abrirModalEditar = function({ nome, email, nivel }) {
+      document.getElementById('editar-titulo').textContent = `Editar usuário: ${nome}`;
+      document.getElementById('editar-nome').value  = nome  || '';
+      document.getElementById('editar-email').value = email || '';
+      document.getElementById('editar-senha').value = '';
+      document.getElementById('editar-nivel').value = nivel || '';
+      abrirModal('modal-editar');
+    };
+
+    document.getElementById('fechar-editar').addEventListener('click',    () => fecharModal('modal-editar'));
+    document.getElementById('btn-cancelar-editar').addEventListener('click', () => fecharModal('modal-editar'));
+
+    document.getElementById('btn-confirmar-editar').addEventListener('click', () => {
+      const nome  = document.getElementById('editar-nome').value.trim();
+      const email = document.getElementById('editar-email').value.trim();
+      const senha = document.getElementById('editar-senha').value.trim();
+      const nivel = document.getElementById('editar-nivel').value.trim();
+
+      if (!nome || !email || !nivel) {
+        alert('Preencha pelo menos nome, email e nível de acesso.');
+        return;
+      }
+
+      // TODO: chamar API para atualizar usuário
+      console.log('Editar usuário:', { nome, email, senha, nivel });
+      fecharModal('modal-editar');
+    });
+
+    // ── Modal: Remover ───────────────────────────────────
+    // Expõe função global para o main.js chamar:
+    // abrirModalRemover({ nome })
+    window.abrirModalRemover = function({ nome }) {
+      document.getElementById('remover-mensagem').textContent =
+        `Deseja remover o usuário (${nome})?`;
+      abrirModal('modal-remover');
+    };
+
+    document.getElementById('fechar-remover').addEventListener('click',    () => fecharModal('modal-remover'));
+    document.getElementById('btn-cancelar-remover').addEventListener('click', () => fecharModal('modal-remover'));
+
+    document.getElementById('btn-confirmar-remover').addEventListener('click', () => {
+      // TODO: chamar API para remover usuário
+      console.log('Remover usuário confirmado');
+      fecharModal('modal-remover');
+    });
+  </script>
 
 </body>
 </html>
